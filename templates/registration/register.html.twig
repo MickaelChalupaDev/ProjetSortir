@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="titre">Register</h1>
 
-    <div class="form-inscription">{{ form_start(registrationForm) }}
+    <div class="form-inscription" style="width: 50%">{{ form_start(registrationForm) }}
     <div class="mail">{{ form_row(registrationForm.email) }}</div>
     <div class="pass">{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
