@@ -3,15 +3,16 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1 class="titre">Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
+    <div class="form-inscription">{{ form_start(registrationForm) }}
+    <div class="mail">{{ form_row(registrationForm.email) }}</div>
+    <div class="pass">{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        }) }}</div>
+    <div class="check-agree
+">{{ form_row(registrationForm.agreeTerms) }}</div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}</div>
 {% endblock %}
