@@ -34,8 +34,6 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column]
-    private ?int $etat = null;
 
     #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'relation')]
     private Collection $participants;
@@ -46,15 +44,15 @@ class Sortie
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Campus $siteOrganisateur = null;
+    private ?Campus $campus = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Lieu $PossedeUnLieu = null;
+    private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $possedeUnEtat = null;
+    private ?Etat $etat = null;
 
     public function __construct()
     {
@@ -138,17 +136,8 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
 
-    public function setEtat(int $etat): self
-    {
-        $this->etat = $etat;
 
-        return $this;
-    }
 
     /**
      * @return Collection<int, Participant>
@@ -189,38 +178,38 @@ class Sortie
         return $this;
     }
 
-    public function getSiteOrganisateur(): ?Campus
+    public function getCampus(): ?Campus
     {
-        return $this->siteOrganisateur;
+        return $this->campus;
     }
 
-    public function setSiteOrganisateur(?Campus $siteOrganisateur): self
+    public function setCampus(?Campus $campus): self
     {
-        $this->siteOrganisateur = $siteOrganisateur;
+        $this->campus = $campus;
 
         return $this;
     }
 
-    public function getPossedeUnLieu(): ?Lieu
+    public function getLieu(): ?Lieu
     {
-        return $this->PossedeUnLieu;
+        return $this->lieu;
     }
 
-    public function setPossedeUnLieu(?Lieu $PossedeUnLieu): self
+    public function setLieu(?Lieu $lieu): self
     {
-        $this->PossedeUnLieu = $PossedeUnLieu;
+        $this->lieu = $lieu;
 
         return $this;
     }
 
-    public function getPossedeUnEtat(): ?Etat
+    public function getEtat(): ?Etat
     {
-        return $this->possedeUnEtat;
+        return $this->etat;
     }
 
-    public function setPossedeUnEtat(?Etat $possedeUnEtat): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->possedeUnEtat = $possedeUnEtat;
+        $this->etat = $etat;
 
         return $this;
     }
