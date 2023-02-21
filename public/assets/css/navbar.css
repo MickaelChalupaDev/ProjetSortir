@@ -1,0 +1,28 @@
+.titre1{
+    /*width: 30%;*/
+    /*margin: 20px auto;*/
+    font-size: 5rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 100px;
+}
+li{
+    display: inline;
+
+}
+li a{
+    text-decoration: none;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 20px;
+}
+a:hover{
+    text-decoration: underline;
+    color: #2975e1;
+}
+ul{
+    margin-top: -150px;
+    margin-right: 40px;
+    float: right;
+}
