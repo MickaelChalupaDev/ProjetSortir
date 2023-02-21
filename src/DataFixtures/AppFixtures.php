@@ -68,6 +68,13 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN','ROLE_USER']);
         $password = $this->hasher->hashPassword($user, '1234');
         $user->setPassword($password);
+        $campus= new Campus();
+        $campus=$manager->getRepository($campus::class)->findOneBy(['nom'=>'SAINT HERBLAIN']);
+        $user->setCampus($campus);
+        $user->setNom('Dupont');
+        $user->setPrenom('julien');
+        $user->setTelephone('0101010101');
+        $user->setActif(0);
         $manager->persist($user);
         $manager->flush();
 
@@ -76,6 +83,13 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_USER']);
         $password = $this->hasher->hashPassword($user, '1234');
         $user->setPassword($password);
+        $campus= new Campus();
+        $campus=$manager->getRepository($campus::class)->findOneBy(['nom'=>'SAINT HERBLAIN']);
+        $user->setCampus($campus);
+        $user->setNom('Joseph');
+        $user->setPrenom('Sonia');
+        $user->setTelephone('0202020202');
+        $user->setActif(0);
         $manager->persist($user);
         $manager->flush();
 
@@ -84,6 +98,13 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_USER']);
         $password = $this->hasher->hashPassword($user, '1234');
         $user->setPassword($password);
+        $campus= new Campus();
+        $campus=$manager->getRepository($campus::class)->findOneBy(['nom'=>'CHARTRES DE BRETAGNE']);
+        $user->setCampus($campus);
+        $user->setNom('Patrick');
+        $user->setPrenom('Michel');
+        $user->setTelephone('0303030303');
+        $user->setActif(0);
         $manager->persist($user);
         $manager->flush();
 
@@ -116,7 +137,7 @@ class AppFixtures extends Fixture
 
         $ville=$manager->getRepository($ville::class)->findOneBy(['nom'=>'Herblay']);
 
-        $lieu->setRattacheA($ville);
+        $lieu->setVille($ville);
         $manager->persist($lieu);
         $manager->flush();
 
@@ -128,9 +149,11 @@ class AppFixtures extends Fixture
         $ville= new Ville();
         $ville=$manager->getRepository($ville::class)->findOneBy(['nom'=>'Cherbourg']);
 
-        $lieu->setRattacheA($ville);
+        $lieu->setVille($ville);
         $manager->persist($lieu);
         $manager->flush();
+
+        //******************* peuplement des sorties **************/
 
 
     }
