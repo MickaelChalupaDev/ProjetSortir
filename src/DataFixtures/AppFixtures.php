@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\User;
 use App\Entity\Ville;
@@ -112,7 +113,9 @@ class AppFixtures extends Fixture
         $lieu->setRue('la liberté');
         $lieu->setLatitude('35.1');
         $lieu->setLongitude('50.2');
-        $ville=$manager->getRepository($ville::class)->find(8);
+
+        $ville=$manager->getRepository($ville::class)->findOneBy(['nom'=>'Herblay']);
+
         $lieu->setRattacheA($ville);
         $manager->persist($lieu);
         $manager->flush();
@@ -122,7 +125,9 @@ class AppFixtures extends Fixture
         $lieu->setRue('la paix');
         $lieu->setLatitude('42.02');
         $lieu->setLongitude('31.22');
-        $ville=$manager->getRepository($ville::class)->find(9);
+        $ville= new Ville();
+        $ville=$manager->getRepository($ville::class)->findOneBy(['nom'=>'Cherbourg']);
+
         $lieu->setRattacheA($ville);
         $manager->persist($lieu);
         $manager->flush();
