@@ -15,18 +15,18 @@ class Campus
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 120)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'estRattacheAUnCampus', targetEntity: Participant::class)]
-    private Collection $participants;
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class)]
+    private Collection $users;
 
-    #[ORM\OneToMany(mappedBy: 'siteOrganisateur', targetEntity: Sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Sortie::class)]
     private Collection $sorties;
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->sorties = new ArrayCollection();
     }
 
@@ -48,29 +48,29 @@ class Campus
     }
 
     /**
-     * @return Collection<int, Participant>
+     * @return Collection<int, User>
      */
-    public function getParticipants(): Collection
+    public function getUsers(): Collection
     {
-        return $this->participants;
+        return $this->users;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addUser(User $user): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants->add($participant);
-            $participant->setEstRattacheAUnCampus($this);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setCampus($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeUser(User $user): self
     {
-        if ($this->participants->removeElement($participant)) {
+        if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($participant->getEstRattacheAUnCampus() === $this) {
-                $participant->setEstRattacheAUnCampus(null);
+            if ($user->getCampus() === $this) {
+                $user->setCampus(null);
             }
         }
 
@@ -89,7 +89,7 @@ class Campus
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
-            $sorty->setSiteOrganisateur($this);
+            $sorty->setCampus($this);
         }
 
         return $this;
@@ -99,8 +99,8 @@ class Campus
     {
         if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getSiteOrganisateur() === $this) {
-                $sorty->setSiteOrganisateur(null);
+            if ($sorty->getCampus() === $this) {
+                $sorty->setCampus(null);
             }
         }
 

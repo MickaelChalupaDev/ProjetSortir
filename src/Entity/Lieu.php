@@ -18,7 +18,7 @@ class Lieu
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 150)]
     private ?string $rue = null;
 
     #[ORM\Column]
@@ -27,12 +27,12 @@ class Lieu
     #[ORM\Column]
     private ?float $longitude = null;
 
-    #[ORM\OneToMany(mappedBy: 'PossedeUnLieu', targetEntity: Sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
     private Collection $sorties;
 
-    #[ORM\ManyToOne(inversedBy: 'lieus')]
+    #[ORM\ManyToOne(inversedBy: 'lieux')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Ville $rattacheA = null;
+    private ?Ville $ville = null;
 
     public function __construct()
     {
@@ -104,7 +104,7 @@ class Lieu
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
-            $sorty->setPossedeUnLieu($this);
+            $sorty->setLieu($this);
         }
 
         return $this;
@@ -114,22 +114,22 @@ class Lieu
     {
         if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getPossedeUnLieu() === $this) {
-                $sorty->setPossedeUnLieu(null);
+            if ($sorty->getLieu() === $this) {
+                $sorty->setLieu(null);
             }
         }
 
         return $this;
     }
 
-    public function getRattacheA(): ?Ville
+    public function getVille(): ?Ville
     {
-        return $this->rattacheA;
+        return $this->ville;
     }
 
-    public function setRattacheA(?Ville $rattacheA): self
+    public function setVille(?Ville $ville): self
     {
-        $this->rattacheA = $rattacheA;
+        $this->ville = $ville;
 
         return $this;
     }

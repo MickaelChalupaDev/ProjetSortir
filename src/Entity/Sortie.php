@@ -16,14 +16,14 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 150)]
     private ?string $nom = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duree = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
@@ -34,31 +34,28 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column]
-    private ?int $etat = null;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'sorties')]
+    private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'relation')]
-    private Collection $participants;
-
-    #[ORM\ManyToOne(inversedBy: 'organise')]
+    #[ORM\ManyToOne(inversedBy: 'sortiesOrga')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Participant $organisateur = null;
+    private ?User $organisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Campus $siteOrganisateur = null;
+    private ?Campus $campus = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Lieu $PossedeUnLieu = null;
+    private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $possedeUnEtat = null;
+    private ?Etat $etat = null;
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,18 +75,6 @@ class Sortie
         return $this;
     }
 
-    public function getDateHeureDebut(): ?\DateTimeInterface
-    {
-        return $this->dateHeureDebut;
-    }
-
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
-    {
-        $this->dateHeureDebut = $dateHeureDebut;
-
-        return $this;
-    }
-
     public function getDuree(): ?\DateTimeInterface
     {
         return $this->duree;
@@ -98,6 +83,18 @@ class Sortie
     public function setDuree(\DateTimeInterface $duree): self
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getDateHeureDebut(): ?\DateTimeInterface
+    {
+        return $this->dateHeureDebut;
+    }
+
+    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    {
+        $this->dateHeureDebut = $dateHeureDebut;
 
         return $this;
     }
@@ -138,89 +135,77 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(int $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Participant>
+     * @return Collection<int, User>
      */
-    public function getParticipants(): Collection
+    public function getUsers(): Collection
     {
-        return $this->participants;
+        return $this->users;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addUser(User $user): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants->add($participant);
-            $participant->addRelation($this);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addSorty($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeUser(User $user): self
     {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeRelation($this);
+        if ($this->users->removeElement($user)) {
+            $user->removeSorty($this);
         }
 
         return $this;
     }
 
-    public function getOrganisateur(): ?Participant
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?Participant $organisateur): self
+    public function setOrganisateur(?User $organisateur): self
     {
         $this->organisateur = $organisateur;
 
         return $this;
     }
 
-    public function getSiteOrganisateur(): ?Campus
+    public function getCampus(): ?Campus
     {
-        return $this->siteOrganisateur;
+        return $this->campus;
     }
 
-    public function setSiteOrganisateur(?Campus $siteOrganisateur): self
+    public function setCampus(?Campus $campus): self
     {
-        $this->siteOrganisateur = $siteOrganisateur;
+        $this->campus = $campus;
 
         return $this;
     }
 
-    public function getPossedeUnLieu(): ?Lieu
+    public function getLieu(): ?Lieu
     {
-        return $this->PossedeUnLieu;
+        return $this->lieu;
     }
 
-    public function setPossedeUnLieu(?Lieu $PossedeUnLieu): self
+    public function setLieu(?Lieu $lieu): self
     {
-        $this->PossedeUnLieu = $PossedeUnLieu;
+        $this->lieu = $lieu;
 
         return $this;
     }
 
-    public function getPossedeUnEtat(): ?Etat
+    public function getEtat(): ?Etat
     {
-        return $this->possedeUnEtat;
+        return $this->etat;
     }
 
-    public function setPossedeUnEtat(?Etat $possedeUnEtat): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->possedeUnEtat = $possedeUnEtat;
+        $this->etat = $etat;
 
         return $this;
     }
