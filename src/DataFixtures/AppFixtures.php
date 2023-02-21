@@ -5,9 +5,11 @@ namespace App\DataFixtures;
 use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
+use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Repository\VilleRepository;
+use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -154,6 +156,53 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         //******************* peuplement des sorties **************/
+
+        $sortie= new Sortie();
+        $organisateur= new User();
+        $organisateur=$manager->getRepository($organisateur::class)->findOneBy(['prenom'=>'Sonia']);
+        $sortie->setOrganisateur($organisateur);
+        $campus= new Campus();
+        $campus=$manager->getRepository($campus::class)->findOneBy(['nom'=>'CHARTRES DE BRETAGNE']);
+        $sortie->setCampus($campus);
+        $lieu= new Lieu();
+        $lieu=$manager->getRepository($lieu::class)->findOneBy(['nom'=>'parc1']);
+        $sortie->setLieu($lieu);
+        $etat= new Etat();
+        $etat=$manager->getRepository($etat::class)->findOneBy(['libelle'=>'Créée']);
+        $sortie->setEtat($etat);
+        $sortie->setNom('Balade');
+        $sortie->setDuree(new \DateTime('now', new DateTimeZone('Europe/Paris')));
+        $sortie->setDateHeureDebut(new \DateTime("2022-02-23 00:00:00"));
+        $sortie->setDateLimiteInscription(new \DateTime("2022-02-22 18:00:00"));
+        $sortie->setNbInscriptionsMax(22);
+        $sortie->setInfosSortie('visite guidée');
+        $manager->persist($sortie);
+        $manager->flush();
+
+        $sortie= new Sortie();
+        $organisateur= new User();
+        $organisateur=$manager->getRepository($organisateur::class)->findOneBy(['prenom'=>'Michel']);
+        $sortie->setOrganisateur($organisateur);
+        $campus= new Campus();
+        $campus=$manager->getRepository($campus::class)->findOneBy(['nom'=>'LA ROCHE SUR YON.']);
+        $sortie->setCampus($campus);
+        $lieu= new Lieu();
+        $lieu=$manager->getRepository($lieu::class)->findOneBy(['nom'=>'musée']);
+        $sortie->setLieu($lieu);
+        $etat= new Etat();
+        $etat=$manager->getRepository($etat::class)->findOneBy(['libelle'=>'Ouverte']);
+        $sortie->setEtat($etat);
+        $sortie->setNom('Visite');
+        $sortie->setDuree(new \DateTime('now', new DateTimeZone('Europe/Paris')));
+        $sortie->setDateHeureDebut(new \DateTime("2022-02-23 00:00:00"));
+        $sortie->setDateLimiteInscription(new \DateTime("2022-02-22 18:00:00"));
+        $sortie->setNbInscriptionsMax(20);
+        $sortie->setInfosSortie('visite guidée');
+        $manager->persist($sortie);
+        $manager->flush();
+
+
+
 
 
     }
