@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="titre1">Sortir.Com</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ path('main_home') }}">Accueil</a></li>
+                <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+        </nav>
+    </div>
+    <table class="autreProfil">
+        <tr>
+            <td class="autreProfilTd0"><label >Prénom :</label> </td>
+            <td class="autreProfilTd1"> {{ user.prenom }} </td>
+        </tr>
+        <tr>
+            <td class="autreProfilTd0"><label >Nom :</label> </td>
+            <td class="autreProfilTd1"> {{ user.nom }} </td>
+        </tr>
+        <tr>
+            <td class="autreProfilTd0"><label >Téléphone :</label> </td>
+            <td class="autreProfilTd1"> {{ user.telephone }} </td>
+        </tr>
+        <tr>
+            <td class="autreProfilTd0"><label >Email :</label> </td>
+            <td class="autreProfilTd1"> {{ user.email }} </td>
+        </tr>
+        <tr>
+            <td class="autreProfilTd0"><label >Campus :</label> </td>
+            <td class="autreProfilTd1"> {{ user.campus.nom }} </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="btnAutreProfil"> <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Retour</a> </button></td>
+        </tr>
+    </table>
+
+
+
+{% endblock %}
+

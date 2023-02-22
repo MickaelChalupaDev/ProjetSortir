@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/profil', name: 'user_profil')]
+    #[Route('/monProfil', name: 'user_profil')]
     public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
        // $user = new User();
@@ -40,5 +40,12 @@ class UserController extends AbstractController
             'userForm' => $userForm->createView(),
             'user' => $user,
         ]);
+    }
+
+    #[Route('/autreProfil/{id}', name: 'autre_profil')]
+    public function voir(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user=$entityManager->getRepository(User::class)->find($id);
+        return $this->render('user/autreProfil.html.twig', [ 'user' => $user]);
     }
 }

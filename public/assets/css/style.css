@@ -110,3 +110,31 @@ form ul {
     padding: 0px;
 }
 
+.autreProfil{
+
+    margin-left: auto;
+    margin-right: auto;
+    width : 450px;
+}
+
+.autreProfilTd0{
+    width : 100px;
+    justify-items: left;
+    padding-bottom: 20px;
+    }
+.autreProfilTd1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+.btnAutreProfil{
+    text-align: center;
+}
+table a:visited{
+    text-decoration: none;
+    color: black;
+}
+table a:hover{
+    text-decoration: none;
+    color: black;
+
+}
