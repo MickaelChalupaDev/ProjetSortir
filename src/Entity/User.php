@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $campus = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Photo = null;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -239,6 +242,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->Photo;
+    }
+
+    public function setPhoto(?string $Photo): self
+    {
+        $this->Photo = $Photo;
 
         return $this;
     }
