@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="titre1">Sortir.Com</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ path('main_home') }}">Accueil</a></li>
+                <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="monProfil">
+        {% dump(user) %}
+        {{ form_start(userForm) }}
+        {{ form_row(userForm.prenom) }}
+        {{ form_row(userForm.nom) }}
+        {{ form_row(userForm.telephone) }}
+        {{ form_row(userForm.email) }}
+        {{ form_row(userForm.password) }}
+        {{ form_row(userForm.confirmation) }}
+        {{ form_row(userForm.campus) }}
+
+       <div class="profilValidation">
+           {{ form_row(userForm.enregistrer) }}
+           {{ form_row(userForm.annuler) }}
+       </div>
+        {{ form_end(userForm) }}
+    </div>
+{% endblock %}
+

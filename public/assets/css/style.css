@@ -58,3 +58,32 @@
     color: #000;
     transition: all 0.5s ease;
 }
+.monProfil{
+    display: flex;
+    justify-content: center;
+}
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+}
+form>div{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+form>div>input{
+    width: 188px;
+}
+.profilValidation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#user_enregistrer, #user_annuler{
+    width: 140px;
+    height: 40px;
+
+}
+

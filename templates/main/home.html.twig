@@ -8,13 +8,13 @@
             <h1 class="titre1">Sortir.Com</h1>
             <nav class="navbar">
                 <ul>
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Mon Profil</a></li>
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('app_city_gestion') }}">Villes</a></li>
                         <li><a href="{{ path('app_campus_gestion') }}">Campus</a></li>
                     {% endif %}
+                    <li><a href="{{ path('main_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
 
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                 </ul>
