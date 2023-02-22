@@ -67,8 +67,7 @@ class Etat
             // set the owning side to null (unless already changed)
             if ($sorty->getEtat() === $this) {
                 $sorty->setEtat(null);
-            }
-        }
+            }        }
 
         return $this;
     }
