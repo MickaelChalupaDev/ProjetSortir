@@ -171,7 +171,7 @@ class AppFixtures extends Fixture
         $etat=$manager->getRepository($etat::class)->findOneBy(['libelle'=>'Créée']);
         $sortie->setEtat($etat);
         $sortie->setNom('Balade');
-        $sortie->setDuree(new \DateTime('now', new DateTimeZone('Europe/Paris')));
+        $sortie->setDuree(120);
         $sortie->setDateHeureDebut(new \DateTime("2022-02-23 00:00:00"));
         $sortie->setDateLimiteInscription(new \DateTime("2022-02-22 18:00:00"));
         $sortie->setNbInscriptionsMax(22);
@@ -193,7 +193,7 @@ class AppFixtures extends Fixture
         $etat=$manager->getRepository($etat::class)->findOneBy(['libelle'=>'Ouverte']);
         $sortie->setEtat($etat);
         $sortie->setNom('Visite');
-        $sortie->setDuree(new \DateTime('now', new DateTimeZone('Europe/Paris')));
+        $sortie->setDuree(60);
         $sortie->setDateHeureDebut(new \DateTime("2022-02-23 00:00:00"));
         $sortie->setDateLimiteInscription(new \DateTime("2022-02-22 18:00:00"));
         $sortie->setNbInscriptionsMax(20);
