@@ -14,6 +14,7 @@ class MainController extends AbstractController
      */
     public function home()
     {
+       // dd($this->getUser());
        if (!$this->getUser()) {
 
             return $this->redirectToRoute('app_login');

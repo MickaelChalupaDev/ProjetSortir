@@ -21,12 +21,11 @@
         {{ form_row(userForm.telephone) }}
         {{ form_row(userForm.email) }}
         {{ form_row(userForm.password) }}
-        {{ form_row(userForm.confirmation) }}
-        {{ form_row(userForm.campus) }}
-
+         {{ form_row(userForm.campus) }}
+        {{ form_row(userForm.photo) }}
        <div class="profilValidation">
            {{ form_row(userForm.enregistrer) }}
-           {{ form_row(userForm.annuler) }}
+           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
        </div>
         {{ form_end(userForm) }}
     </div>

@@ -66,7 +66,7 @@ form{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 400px;
+    width: 450px;
 }
 form>div{
     display: flex;
@@ -81,9 +81,32 @@ form>div>input{
     flex-direction: row;
     justify-content: space-around;
 }
-#user_enregistrer, #user_annuler{
+#user_enregistrer{
+    width: 140px;
+    height: 40px;
+}
+.profilValidationBtn{
     width: 140px;
     height: 40px;
 
+}
+.profilValidationA{
+    text-decoration: none;
+
+}
+form a:hover{
+    text-decoration: none;
+    color: black;
+
+}
+form a:visited{
+    text-decoration: none;
+    color: black;
+}
+form ul {
+    margin: 0px;
+    font-size: 12px;
+    color: red;
+    padding: 0px;
 }
 
