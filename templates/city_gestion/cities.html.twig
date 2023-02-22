@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1 class="titre">Gestion des villes</h1>
+
+    //todo: gestion des villes en tant qu'admin
+    <table style="border: 1px solid black">
+        <th style="width: 30%; border: 1px solid black">Nom</th>
+        <th style="width: 30%; border: 1px solid black">Code Postale</th>
+        <th style="width: 30%; border: 1px solid black">Actions</th>
+
+        {# ICI ON RÉCUPÈRE TOUS LES VILLES POUR POUVOIR LES MODIFIER #}
+        {% for s in search %}
+        <tr style="border: 1px solid black">
+            <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
+            <td style="text-align: center; border: 1px solid black">{{ s.codePostal }}</td>
+            <td style="text-align: center; border: 1px solid black">
+                <a href="#">Modifier</a>
+                <a href="#">Supprimer</a>
+                {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

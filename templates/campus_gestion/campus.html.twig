@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1 class="titre">Gestion des Campus</h1>
+
+    //todo : gestion des campus en tant qu'admin
+    <table style="border: 1px solid black">
+        <th style="width: 30%; border: 1px solid black">Campus</th>
+        <th style="width: 30%; border: 1px solid black">Actions</th>
+
+    {# ICI ON RÉCUPÈRE TOUS LES CAMPUS POUR POUVOIR LES MODIFIER #}
+        {% for s in search %}
+        <tr style="border: 1px solid black">
+            <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
+            <td style="text-align: center; border: 1px solid black">
+                <a href="#">Modifier</a>
+                <a href="#">Supprimer</a>
+        {% endfor %}
+        </tr>
+    </table>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
