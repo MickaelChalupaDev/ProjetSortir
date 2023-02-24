@@ -176,6 +176,10 @@ class AppFixtures extends Fixture
         $sortie->setDateLimiteInscription(new \DateTime("2022-02-22 18:00:00"));
         $sortie->setNbInscriptionsMax(22);
         $sortie->setInfosSortie('visite guidée');
+        $user=$manager->getRepository(User::class)->findOneBy(['prenom'=>'Sonia']);
+        $sortie->addUser($user);
+        $user=$manager->getRepository(User::class)->findOneBy(['prenom'=>'julien']);
+        $sortie->addUser($user);
         $manager->persist($sortie);
         $manager->flush();
 
