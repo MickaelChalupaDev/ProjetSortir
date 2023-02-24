@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="titre1">Sortir.Com</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ path('main_home') }}">Accueil</a></li>
+                <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="maSortie">
+        {{ form_start(sortieForm) }}
+
+    <table name="tableModifierSortie">
+        <tr>
+            <td> {{ form_row(sortieForm.nom) }}  </td>
+            <td> {{ form_row(sortieForm.campus) }}  </td>
+        </tr>
+        <tr>
+            <td>   {{form_row(sortieForm.dateHeureDebut) }}  </td>
+            <td> {{ form_row(sortieForm.lieu) }}  </td>
+        </tr>
+        <tr>
+            <td> {{ form_row(sortieForm.dateLimiteInscription) }}  </td>
+            <td> <div class="modifierSortieTd0"> <div>  Rue :</div> <div> {{ sortie.lieu.rue }}</div> </div> </td>
+        </tr>
+        <tr>
+            <td> {{ form_row(sortieForm.nbInscriptionsMax) }}  </td>
+            <td> <div class="modifierSortieTd1"> <div>  Code Postal :</div> <div> {{ sortie.lieu.ville.codePostal }}</div> </div> </td>
+        </tr>
+        <tr>
+            <td> {{ form_row(sortieForm.duree) }}  </td>
+            <td> {{ form_row(sortieForm.latitude) }}  </td>
+        </tr>
+        <tr>
+            <td> {{ form_row(sortieForm.infosSortie) }}  </td>
+            <td> {{ form_row(sortieForm.longitude) }}  </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="modifierSortieBtn" >
+                    {{ form_row(sortieForm.enregistrer)}}
+                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Publier la sortie</a> </button>
+
+                </div>
+            </td>
+            <td>
+                <div class="modifierSortieBtn">
+                    {{ form_row(sortieForm.supprimer) }}
+                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+
+                </div>
+            </td>
+        </tr>
+
+    </table>
+        {{ form_end(sortieForm) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.js-datepicker').datepicker({
+            format:'yyyy.MM.dd'
+        });
+        $('.datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss'
+        });
+
+    </script>
+
+{% endblock %}
+
