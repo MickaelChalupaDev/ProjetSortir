@@ -138,3 +138,71 @@ table a:hover{
     color: black;
 
 }
+.maSortie{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+table[name="tableModifierSortie"]{
+    width: 1000px;
+
+}
+td>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-bottom: 20px;
+}
+td>div>label{
+    width : 200px;
+}
+td>div>input{
+    width : 200px;
+
+}
+td{
+    margin-top: 0px;
+    vertical-align: top;
+
+}
+td>div>select{
+    width : 208px;
+}
+td>div>textarea{
+    width : 200px;
+    height: 80px;
+    resize: none;
+}
+form[name="sortie"]{
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.modifierSortieBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+#sortie_enregistrer{
+    width: 140px;
+    height: 40px;
+}
+#sortie_supprimer{
+    width: 140px;
+    height: 40px;
+}
+.modifierSortieTd0{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 260px;
+}
+.modifierSortieTd1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 245px;
+}
