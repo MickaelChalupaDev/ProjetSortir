@@ -46,7 +46,7 @@
             <td>
                 <div class="modifierSortieBtn" >
                     {{ form_row(sortieForm.enregistrer)}}
-                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Publier la sortie</a> </button>
+                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Publier la sortie</a> </button>
 
                 </div>
             </td>

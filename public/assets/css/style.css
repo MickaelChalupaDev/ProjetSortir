@@ -206,3 +206,11 @@ form[name="sortie"]{
     justify-content: space-between;
     width: 245px;
 }
+.table-striped{
+    max-height: 80px;
+    width: 200px;
+    overflow-y: scroll;
+    display: block;
+
+
+}

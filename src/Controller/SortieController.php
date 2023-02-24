@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-    #[Route('/sortie/{id}', name: 'app_sortie')]
+    #[Route('/modifierSortie/{id}', name: 'app_sortie')]
     public function index(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortie=$entityManager->getRepository(Sortie::class)->find($id);
@@ -54,6 +54,27 @@ class SortieController extends AbstractController
         return $this->render('sortie/maSortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
             'sortie' =>$sortie,
+        ]);
+    }
+
+
+    #[Route('/AfficherSortie/{id}', name: 'app_afficherSortie')]
+    public function afficher(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $sortie=$entityManager->getRepository(Sortie::class)->find($id);
+        if(!$sortie) {
+            $this->addFlash('fail', 'Sortie n\'existe pas !');
+            return $this->redirectToRoute('main_home');
+        }
+        $users=$sortie->getUsers();
+       foreach ($users as $user)
+        {
+            $user->getNom();
+        }
+
+      /*  dd($users);*/
+        return $this->render('sortie/afficherSortie.html.twig', [
+                       'sortie' =>$sortie,
         ]);
     }
 }
