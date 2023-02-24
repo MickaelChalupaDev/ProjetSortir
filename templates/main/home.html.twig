@@ -23,48 +23,71 @@
     </header>
 
     <main>
+        //todo: remplacer les formulaires html en forms symfony
         <div>
             <h2>Filtres les sorties</h2>
-            <form action="" method="post">
 
-                <div class="search">
-                <label for="search"><strong>Campus :</strong> &nbsp;</label>
-                <select type="text" name="search">
-                    <option value="1">Tous les campus</option>
-                    <option value="2">Campus 1</option>
-                    <option value="3">Campus 2</option>
-                    <option value="4">Campus 3</option>
-                </select>
-                </div>
+            <div class="filtre-campus">
+                {% if form is defined %}
+                    <h2 style="color: red">TEST SI LE FORMULAIRE EST DEFINI (SI OUI ON AFFICHE LE FORMULAIRE EN
+                        SYMFONY)</h2>
+                    <br>
+                    <div class="filtre-campus">
 
-                <br>
-                <label for="search"><strong>Le nom de la sortie contient :</strong> &nbsp;</label>
-                <input type="text" name="search" placeholder="Rechercher une sortie">
+                        {{ form_start(form) }}
+                        Nom :
+                        {{ form_widget(form.nom) }}
+                        <br>
+                        <button type="submit">Rechercher</button>
+                        {{ form_end(form) }}
 
-                <br>
+                    </div>
 
-                <div class="choice-date">
-                <label for="search"><strong>Entre :</strong> &nbsp;</label>
-                <input type="date" name="search" placeholder="Rechercher une sortie"> &nbsp;
-                <label for="search"><strong>Et :</strong> &nbsp;</label>
-                <input type="date" name="search" placeholder="Rechercher une sortie">
-                </div>
+                {% endif %}
+{#                <h2 style="color: red">SINON, ON AFFICHE LE FORMULAIRE EN HTML</h2>#}
+{#                <br><br>#}
+{#            <form action="" method="post">#}
 
-                <br>
+{#                <div class="search">#}
+{#                <label for="search"><strong>Campus :</strong> &nbsp;</label>#}
+{#                <select type="text" name="search">#}
+{#                    <option value="1">Tous les campus</option>#}
+{#                    <option value="2">Campus 1</option>#}
+{#                    <option value="3">Campus 2</option>#}
+{#                    <option value="4">Campus 3</option>#}
+{#                </select>#}
+{#                </div>#}
 
-                <div class="checkbox">
-                <input type="checkbox" name="search" placeholder="Sorties dont je suis l'organisateur/trice">Sorties dont je suis l'organisateur/trice<br>
-                <input type="checkbox" name="search" placeholder="Sorties auquelles je suis inscrit/te">Sorties auquelles je suis inscrit/te<br>
-                <input type="checkbox" name="search" placeholder="Sorties auquelles je ne suis pas inscrit/te">Sorties auquelles je ne suis pas inscrit/te<br>
-                <input type="checkbox" name="search" placeholder="Sorties passées">Sorties passées<br>
-                </div>
+{#                <br>#}
+{#                <label for="search"><strong>Le nom de la sortie contient :</strong> &nbsp;</label>#}
+{#                <input type="text" name="search" placeholder="Rechercher une sortie">#}
 
-                <br>
+{#                <br>#}
 
-                <input type="submit" value="Rechercher">
-            </form>
+{#                <div class="choice-date">#}
+{#                <label for="search"><strong>Entre :</strong> &nbsp;</label>#}
+{#                <input type="date" name="search" placeholder="Rechercher une sortie"> &nbsp;#}
+{#                <label for="search"><strong>Et :</strong> &nbsp;</label>#}
+{#                <input type="date" name="search" placeholder="Rechercher une sortie">#}
+{#                </div>#}
+
+{#                <br>#}
+
+{#                <div class="checkbox">#}
+{#                <input type="checkbox" name="search" placeholder="Sorties dont je suis l'organisateur/trice">Sorties dont je suis l'organisateur/trice<br>#}
+{#                <input type="checkbox" name="search" placeholder="Sorties auquelles je suis inscrit/te">Sorties auquelles je suis inscrit/te<br>#}
+{#                <input type="checkbox" name="search" placeholder="Sorties auquelles je ne suis pas inscrit/te">Sorties auquelles je ne suis pas inscrit/te<br>#}
+{#                <input type="checkbox" name="search" placeholder="Sorties passées">Sorties passées<br>#}
+{#                </div>#}
+
+{#                <br>#}
+
+{#                <input type="submit" value="Rechercher">#}
+{#            </form>#}
+
+{#            {% endif %}#}
+            </div>
         </div>
-
     </main>
 {% endblock %}
 
