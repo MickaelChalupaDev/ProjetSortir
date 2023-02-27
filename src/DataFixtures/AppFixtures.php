@@ -180,6 +180,8 @@ class AppFixtures extends Fixture
         $sortie->addUser($user);
         $user=$manager->getRepository(User::class)->findOneBy(['prenom'=>'julien']);
         $sortie->addUser($user);
+        $user=$manager->getRepository(User::class)->findOneBy(['prenom'=>'Michel']);
+        $sortie->addUser($user);
         $manager->persist($sortie);
         $manager->flush();
 

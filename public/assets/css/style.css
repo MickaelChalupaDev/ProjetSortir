@@ -191,7 +191,11 @@ form[name="sortie"]{
     height: 40px;
 }
 #sortie_supprimer{
-    width: 140px;
+    width: 160px;
+    height: 40px;
+}
+#sortie_publier{
+    width: 160px;
     height: 40px;
 }
 .modifierSortieTd0{
@@ -207,10 +211,18 @@ form[name="sortie"]{
     width: 245px;
 }
 .table-striped{
-    max-height: 80px;
+    max-height: 150px;
     width: 200px;
     overflow-y: scroll;
     display: block;
-
+}
+table[name="tableAnnulerSortie"]{
+    width: 500px;
 
 }
+#annuler_sortie_enregistrer{
+    width: 140px;
+    height: 40px;
+
+}
+
