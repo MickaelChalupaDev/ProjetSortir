@@ -218,7 +218,6 @@ form[name="sortie"]{
     justify-content: space-between;
     width: 245px;
 }
-<<<<<<< Updated upstream
 .table-striped{
     max-height: 150px;
     width: 200px;
@@ -249,8 +248,6 @@ form[name="creation_sortie"]{
     width: 140px;
     height: 40px;
 }
-=======
 .result-sortie{
     border: 1px solid black;
 }
->>>>>>> Stashed changes
