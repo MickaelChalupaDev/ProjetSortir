@@ -226,3 +226,17 @@ table[name="tableAnnulerSortie"]{
 
 }
 
+form[name="creation_sortie"]{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 850px;
+}
+#creation_sortie_enregistrer{
+    width: 140px;
+    height: 40px;
+}
+#creation_sortie_publier{
+    width: 140px;
+    height: 40px;
+}

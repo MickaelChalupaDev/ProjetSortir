@@ -7,6 +7,7 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\AnnulerSortieType;
+use App\Form\CreationSortieType;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,60 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/maSortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
+            'sortie' =>$sortie,
+        ]);
+    }
+
+    #[Route('/creerSortie', name: 'app_creation_sortie')]
+    public function creation(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $sortie= new Sortie();
+        $creationSortieForm = $this->createForm(CreationSortieType::class, $sortie);
+        $creationSortieForm->handleRequest($request);
+
+        if ($creationSortieForm->isSubmitted() && $creationSortieForm->isValid()){
+
+            if ($creationSortieForm->get('enregistrer')->isClicked()) {
+                $sortie = $creationSortieForm->getData();
+                $latitude = $creationSortieForm->get('latitude')->getData();
+                $longitude = $creationSortieForm->get('longitude')->getData();
+                $lieu = $sortie->getLieu();
+                $lieu->setLatitude($latitude);
+                $lieu->setLongitude($longitude);
+                $sortie->setLieu($lieu);
+                $user=$this->getUser();
+                $sortie->setOrganisateur($user);
+                $etat= new Etat();
+                $etat=$entityManager->getRepository($etat::class)->findOneBy(['libelle'=>'Créée']);
+                $sortie->setEtat($etat);
+
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success', 'Sortie a été crée avec succès !');
+                return $this->redirectToRoute('main_home');
+            } else {
+                $sortie = $creationSortieForm->getData();
+                $latitude = $creationSortieForm->get('latitude')->getData();
+                $longitude = $creationSortieForm->get('longitude')->getData();
+                $lieu = $sortie->getLieu();
+                $lieu->setLatitude($latitude);
+                $lieu->setLongitude($longitude);
+                $sortie->setLieu($lieu);
+                $user=$this->getUser();
+                $sortie->setOrganisateur($user);
+                $etat= new Etat();
+                $etat=$entityManager->getRepository($etat::class)->findOneBy(['libelle'=>'Ouverte']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success', 'Sortie a été publiée avec succès !');
+                return $this->redirectToRoute('main_home');
+
+            }
+        }
+
+        return $this->render('sortie/creerSortie.html.twig', [
+            'creationSortieForm' => $creationSortieForm->createView(),
             'sortie' =>$sortie,
         ]);
     }
