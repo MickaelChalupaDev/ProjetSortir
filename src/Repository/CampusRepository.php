@@ -39,6 +39,18 @@ class CampusRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchCampus($criteria)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.nom LIKE :nom')
+            ->setParameter('nom', '%'.$criteria['nom'].'%')
+            ->getQuery()
+            ->getResult();
+    }
+//MÉTHODE POUR POUVOIR AJOUTER UN CAMPUS EN BASE DE DONNÉES
+
+
+
 //    /**
 //     * @return Campus[] Returns an array of Campus objects
 //     */

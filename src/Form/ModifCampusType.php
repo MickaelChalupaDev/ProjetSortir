@@ -7,10 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CampusType extends AbstractType
+class ModifCampusType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -18,14 +17,14 @@ class CampusType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom du campus',
                 'attr' => [
-                    'placeholder' => 'Le nom contient...',
-                    'class' => 'form-control'
-                ]
+                    'placeholder' => 'Nom du campus',
+                    'class' => 'form-control',
+                ],
             ])
-            ->add('Rechercher', SubmitType::class, [
+            ->add('Modifier', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
+                    'class' => 'btn btn-primary',
+                ],
             ])
         ;
     }

@@ -3,91 +3,78 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <header>
-        <div>
-            <h1 class="titre1">Sortir.Com</h1>
-            <nav class="navbar">
-                <ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6"><h1>Sortir.Com</h1></div>
+            <div class="col">
+                <ul class="nav justify-content-end">
 
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('app_city_gestion') }}">Villes</a></li>
-                        <li><a href="{{ path('app_campus_gestion') }}">Campus</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_city_gestion') }}">Villes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_campus_gestion') }}">Campus</a></li>
                     {% endif %}
-                    <li><a href="{{ path('main_home') }}">Accueil</a></li>
-                    <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('main_home') }}">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('user_profil') }}">Mon profil</a></li>
 
-                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        //todo: remplacer les formulaires html en forms symfony
-        <div>
-            <h2>Filtres les sorties</h2>
-
-            <div class="filtre-campus">
-                {% if form is defined %}
-                    <h2 style="color: red">TEST SI LE FORMULAIRE EST DEFINI (SI OUI ON AFFICHE LE FORMULAIRE EN
-                        SYMFONY)</h2>
-                    <br>
-                    <div class="filtre-campus">
-
-                        {{ form_start(form) }}
-                        Nom :
-                        {{ form_widget(form.nom) }}
-                        <br>
-                        <button type="submit">Rechercher</button>
-                        {{ form_end(form) }}
-
-                    </div>
-
-                {% endif %}
-{#                <h2 style="color: red">SINON, ON AFFICHE LE FORMULAIRE EN HTML</h2>#}
-{#                <br><br>#}
-{#            <form action="" method="post">#}
-
-{#                <div class="search">#}
-{#                <label for="search"><strong>Campus :</strong> &nbsp;</label>#}
-{#                <select type="text" name="search">#}
-{#                    <option value="1">Tous les campus</option>#}
-{#                    <option value="2">Campus 1</option>#}
-{#                    <option value="3">Campus 2</option>#}
-{#                    <option value="4">Campus 3</option>#}
-{#                </select>#}
-{#                </div>#}
-
-{#                <br>#}
-{#                <label for="search"><strong>Le nom de la sortie contient :</strong> &nbsp;</label>#}
-{#                <input type="text" name="search" placeholder="Rechercher une sortie">#}
-
-{#                <br>#}
-
-{#                <div class="choice-date">#}
-{#                <label for="search"><strong>Entre :</strong> &nbsp;</label>#}
-{#                <input type="date" name="search" placeholder="Rechercher une sortie"> &nbsp;#}
-{#                <label for="search"><strong>Et :</strong> &nbsp;</label>#}
-{#                <input type="date" name="search" placeholder="Rechercher une sortie">#}
-{#                </div>#}
-
-{#                <br>#}
-
-{#                <div class="checkbox">#}
-{#                <input type="checkbox" name="search" placeholder="Sorties dont je suis l'organisateur/trice">Sorties dont je suis l'organisateur/trice<br>#}
-{#                <input type="checkbox" name="search" placeholder="Sorties auquelles je suis inscrit/te">Sorties auquelles je suis inscrit/te<br>#}
-{#                <input type="checkbox" name="search" placeholder="Sorties auquelles je ne suis pas inscrit/te">Sorties auquelles je ne suis pas inscrit/te<br>#}
-{#                <input type="checkbox" name="search" placeholder="Sorties passées">Sorties passées<br>#}
-{#                </div>#}
-
-{#                <br>#}
-
-{#                <input type="submit" value="Rechercher">#}
-{#            </form>#}
-
-{#            {% endif %}#}
             </div>
         </div>
-    </main>
+        <div class="vide"></div>
+
+        <main>
+            <div>
+                <h2><u>Filtres les sorties</u></h2>
+
+                <div class="filtre-campus">
+                    {% if form is defined %}
+
+                        <br>
+                        <div class="filtre-campus">
+
+                            //todo: forms home page
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="vide"></div>
+            <div>
+
+                <h2><u>Résultat des Sorties</u></h2>
+                <br>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                        <th>Type de sortie</th>
+                        <th>oragnisateur</th>
+                        <th>date début</th>
+                        <th>date de fin</th>
+                        <th>Nombre de places</th>
+                        <th>Etat</th>
+                        <th>Inscription</th>
+
+                    </tr>
+                    {% for s in sortie %}
+                        <tr>
+                            <td>{{ s.nom }}</td>
+                            <td>{{ s.organisateur.prenom }}</td>
+                            <td>{{ s.dateLimiteInscription | date('d/m/y H:i') }}</td>
+                            <td>{{ s.dateHeureDebut|date('d/m/Y H:i') }}</td>
+                            <td>{{ s.nbInscriptionsMax }}</td>
+                            <td>{{ s.etat.libelle }}</td>
+                            <td>
+                                {% if s.etat.libelle == 'Ouverte' %}
+                                    <a href="{{ path('main_home', {'id': s.id}) }}">S'inscrire</a>
+                                {% else %}
+                                    <a href="{{ path('main_home', {'id': s.id}) }}">Créer</a>
+                                {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </main>
+    </div>
 {% endblock %}
 

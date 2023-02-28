@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
-
 {% block body %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-4"><h1 class="titre1">Mon profil</h1></div>
+        <div class="col-6"><h1 class="titre1">Modification de ville</h1></div>
         <div class="col">
             <ul class="nav justify-content-end">
 
@@ -21,22 +19,14 @@
         </div>
     </div>
     <div>
-        <div class="vide1"></div>
-    <div class="monProfil">
-
-        {{ form_start(userForm) }}
-        {{ form_row(userForm.prenom) }}
-        {{ form_row(userForm.nom) }}
-        {{ form_row(userForm.telephone) }}
-        {{ form_row(userForm.email) }}
-        {{ form_row(userForm.password) }}
-         {{ form_row(userForm.campus) }}
-        {{ form_row(userForm.photo) }}
-       <div class="profilValidation">
-           {{ form_row(userForm.enregistrer) }}
-           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
-       </div>
-        {{ form_end(userForm) }}
+        {{ form_start(modifForm) }}
+        {{ form_widget(modifForm) }}
+        {{ form_end(modifForm) }}
     </div>
+</div>
+{% endblock %}
+
+{% block title %}
+    Modification de ville
 {% endblock %}
 
