@@ -3,16 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <div>
-        <h1 class="titre1">Sortir.Com</h1>
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ path('main_home') }}">Accueil</a></li>
-                <li><a href="{{ path('user_profil') }}">Mon profil</a></li>
-                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-            </ul>
-        </nav>
-    </div>
+    {% include('navbar.html.twig') %}
     <div class="maSortie">
         {{ form_start(sortieForm) }}
 
