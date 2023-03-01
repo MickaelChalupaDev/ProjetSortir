@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CampusGestionController extends AbstractController
 {
-    #[Route('/campus/gestion', name: 'app_campus_gestion')]
+    #[Route('/admin/campus/gestion', name: 'app_campus_gestion')]
 
     public function index(Request $request, CampusRepository $campusRepository, EntityManagerInterface $entityManager): Response
     {
