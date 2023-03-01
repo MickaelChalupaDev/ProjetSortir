@@ -7,6 +7,7 @@ use App\Entity\Etat;
 use DateTime;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\AnnulerSortieType;
 use App\Form\CreationSortieType;
 use App\Form\SortieType;
@@ -51,7 +52,6 @@ class SortieController extends AbstractController
                 $lieu->setLatitude($latitude);
                 $lieu->setLongitude($longitude);
                 $sortie->setLieu($lieu);
-
                 $entityManager->persist($sortie);
                 $entityManager->flush();
                 $this->addFlash('success', 'Sortie a été modifiée avec succès !');
@@ -92,20 +92,22 @@ class SortieController extends AbstractController
     {
         $sortie= new Sortie();
         $creationSortieForm = $this->createForm(CreationSortieType::class, $sortie);
+        $user=$this->getUser();
+        $sortie->setCampus($user->getCampus());
         $creationSortieForm->handleRequest($request);
+
+
 
         if ($creationSortieForm->isSubmitted() && $creationSortieForm->isValid()){
 
             if ($creationSortieForm->get('enregistrer')->isClicked()) {
                 $sortie = $creationSortieForm->getData();
-                $latitude = $creationSortieForm->get('latitude')->getData();
-                $longitude = $creationSortieForm->get('longitude')->getData();
-                $lieu = $sortie->getLieu();
-                $lieu->setLatitude($latitude);
-                $lieu->setLongitude($longitude);
-                $sortie->setLieu($lieu);
-                $user=$this->getUser();
+
+                $sortie->getLieu()->setLatitude($creationSortieForm->get('latitude')->getData());
+                $sortie->getLieu()->setLongitude($creationSortieForm->get('longitude')->getData());
+
                 $sortie->setOrganisateur($user);
+
                 $etat= new Etat();
                 $etat=$entityManager->getRepository($etat::class)->findOneBy(['libelle'=>'Créée']);
                 $sortie->setEtat($etat);
@@ -116,17 +118,16 @@ class SortieController extends AbstractController
                 return $this->redirectToRoute('main_home');
             } else {
                 $sortie = $creationSortieForm->getData();
-                $latitude = $creationSortieForm->get('latitude')->getData();
-                $longitude = $creationSortieForm->get('longitude')->getData();
-                $lieu = $sortie->getLieu();
-                $lieu->setLatitude($latitude);
-                $lieu->setLongitude($longitude);
-                $sortie->setLieu($lieu);
-                $user=$this->getUser();
+
+                $sortie->getLieu()->setLatitude($creationSortieForm->get('latitude')->getData());
+                $sortie->getLieu()->setLongitude($creationSortieForm->get('longitude')->getData());
+
                 $sortie->setOrganisateur($user);
+
                 $etat= new Etat();
                 $etat=$entityManager->getRepository($etat::class)->findOneBy(['libelle'=>'Ouverte']);
                 $sortie->setEtat($etat);
+
                 $entityManager->persist($sortie);
                 $entityManager->flush();
                 $this->addFlash('success', 'Sortie a été publiée avec succès !');

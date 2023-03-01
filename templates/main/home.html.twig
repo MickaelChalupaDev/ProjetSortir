@@ -64,7 +64,7 @@
                             <td>{{ s.etat.libelle }}</td>
                             <td>
                                 {% if s.etat.libelle == 'Ouverte' %}
-                                    <a href="{{ path('main_home', {'id': s.id}) }}">S'inscrire</a>
+                                    <a href="{{ path('app_sInscrire', {'id': s.id}) }}">S'inscrire</a>
                                 {% else %}
                                     <a href="{{ path('main_home', {'id': s.id}) }}">Créer</a>
                                 {% endif %}

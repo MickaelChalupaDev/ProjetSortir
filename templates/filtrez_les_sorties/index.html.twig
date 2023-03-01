@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <div class="container">
     <form method="get" action="{{ path('app_home') }}">
         <div class="form-row">
@@ -58,6 +59,18 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    $('.js-datepicker').datepicker({
+        format:'yyyy.MM.dd'
+    });
+    $('.datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD hh:mm:ss'
+    });
+</script>
 {% endblock %}
 
 

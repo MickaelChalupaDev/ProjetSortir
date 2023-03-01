@@ -244,6 +244,24 @@ form[name="creation_sortie"]{
     width: 140px;
     height: 40px;
 }
+
+.creerSortieTd{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 408px;
+}
+
+.creerSortieTd0{
+
+    width: 200px;
+}
+#villes{
+    width: 208px;
+}
+#lieux{
+    width: 208px;
+}
 #creation_sortie_publier{
     width: 140px;
     height: 40px;

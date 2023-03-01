@@ -23,33 +23,23 @@ class CreationSortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,['label'=>'Nom de la sortie :'])
-            ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :' ])
-
             ->add('dateHeureDebut', DateTimeType::class, ['label' => 'Date et heure de la sortie :',
                 'widget' => 'single_text',
                 'attr' => [ 'class' => 'js-datetimepicker']
             ])
-            ->add('villes', EntityType::class, ['mapped' => false,'class'=> Ville::class, 'choice_label'=> 'nom', 'label'=> 'Ville :' ])
-            ->add('lieu', EntityType::class, ['class'=> Lieu::class, 'choice_label'=> 'nom', 'label'=> 'Lieu :'])
-
             ->add('dateLimiteInscription', DateType::class, ['label' => 'Date limite d\'inscription :',
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker'],
             ])
-
-
+            ->add('villes', EntityType::class, ['mapped' => false,'class'=> Ville::class, 'choice_label'=> 'nom', 'label'=> 'Ville :' ])
+            ->add('lieu', EntityType::class, ['class'=> Lieu::class, 'choice_label'=> 'nom', 'label'=> 'Lieu :'])
             ->add('nbInscriptionsMax', IntegerType::class,['label'=> 'Nombre de places :'])
-
-
             ->add('duree', IntegerType::class, ['label'=> 'Durée'])
             ->add('latitude',TextType::class, ['mapped' => false, 'label' => 'Latitude :'])
-
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos'])
             ->add('longitude',TextType::class, ['mapped' => false, 'label' => 'Longitude :'])
             ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('publier', SubmitType::class, ['label' => 'Publier la sortie'])
-           
-
         ;
     }
 

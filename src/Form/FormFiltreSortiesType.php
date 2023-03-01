@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,8 +19,13 @@ class FormFiltreSortiesType extends AbstractType
         $builder
             ->add('campus')
             ->add('nom')
-            ->add('dateHeureDebut', DateType::class)
-            ->add('dateLimiteInscription', DateType::class)
+            ->add('dateHeureDebut', DateTimeType::class, ['label' => 'Date et heure de la sortie :',
+                'widget' => 'single_text',
+                'attr' => [ 'class' => 'js-datetimepicker']])
+            ->add('dateLimiteInscription', DateType::class, ['label' => 'Date limite d\'inscription :',
+                'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
+            ])
             ->add('organisateur', )
             ->add('nom', TextType::class, [
                 'label' => 'Nom du campus',
