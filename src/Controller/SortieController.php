@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Campus;
 use App\Entity\Etat;
+use DateTime;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\AnnulerSortieType;
@@ -147,6 +148,12 @@ class SortieController extends AbstractController
         $sortie=$entityManager->getRepository(Sortie::class)->find($id);
         if(!$sortie) {
             $this->addFlash('fail', 'Sortie n\'existe pas !');
+            return $this->redirectToRoute('main_home');
+        }
+        $unMoisAuparavant = new DateTime();
+        $unMoisAuparavant->modify('-1 month');
+        if($sortie->getDateHeureDebut() <= $unMoisAuparavant) {
+            $this->addFlash('fail', ' Cette sortie n\'est plus accesible !');
             return $this->redirectToRoute('main_home');
         }
         $users=$sortie->getUsers();
