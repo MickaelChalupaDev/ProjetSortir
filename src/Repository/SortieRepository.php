@@ -3,12 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -45,11 +47,14 @@ class SortieRepository extends ServiceEntityRepository
 
 
     public function findSortiesByFilters(
-       ? string           $campus,
+       ? Campus             $campus,
        ? string             $nom,
-       ? DateTimeInterface $dateHeureDebut,
-       ? DateTimeInterface $dateLimiteInscription,
+       ? DateTimeInterface  $entre,
+       ? DateTimeInterface  $et,
        ? User               $organisateur,
+       ? User               $participant,
+       ? bool               $val,
+       ? Etat               $etat,
 
     ): array
     {
@@ -68,19 +73,33 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('nom', '%' . $nom . '%');
         }
 
-        if ($dateHeureDebut) {
-            $qb->andWhere('s.dateHeureDebut >= :dateDebut')
-                ->setParameter('dateDebut', $dateHeureDebut);
+        if ($entre) {
+            $qb->andWhere('s.dateHeureDebut >= :entre')
+                ->setParameter('entre', $entre);
         }
 
-        if ($dateLimiteInscription) {
-            $qb->andWhere('s.dateHeureDebut <= :dateFin')
-                ->setParameter('dateFin', $dateLimiteInscription);
+        if ($et) {
+            $qb->andWhere('s.dateHeureDebut <= :et')
+                ->setParameter('et', $et);
         }
 
-        if ($organisateur) {
+        if ($organisateur->getId() !== null) {
             $qb->andWhere('s.organisateur = :organisateur')
                 ->setParameter('organisateur', $organisateur);
+        }
+        if (($participant->getId() !== null) and ($val === true)) {
+            $qb->leftJoin('s.users', 'users');
+            $qb->andWhere('users.id = :participant')
+                ->setParameter('participant', $participant->getId());
+        }
+        if (($participant->getId() !== null) and ($val === false)) {
+            $qb->leftJoin('s.users', 'users');
+            $qb->andWhere('users.id != :participant')
+                ->setParameter('participant', $participant->getId());
+        }
+        if ($etat->getId() !== null) {
+            $qb->andWhere('s.etat = :etat')
+                ->setParameter('etat', $etat);
         }
         return $qb->getQuery()->getResult() ?: [];
     }

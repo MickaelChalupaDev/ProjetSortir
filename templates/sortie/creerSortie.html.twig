@@ -3,7 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% include('navbar.html.twig') %}
+
     <div class="maSortie">
         {{ form_start(creationSortieForm) }}
 
@@ -64,7 +64,7 @@
                         {{ form_row(creationSortieForm.enregistrer)}}
                         {{ form_row(creationSortieForm.publier)}}
                         <div class="modifierSortieBtn">
-                            <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+                            <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}">Annuler</a> </button>
                         </div>
 
                     </div>

@@ -269,9 +269,7 @@ form[name="creation_sortie"]{
 .result-sortie{
     border: 1px solid black;
 }
-.tableAccueil{
 
-}
 .container_accueil{
     display: flex;
     flex-direction: column;
@@ -279,7 +277,7 @@ form[name="creation_sortie"]{
     width: 100%;
 }
 table[name="tableAccueil"]>tbody>tr>td{
-    width: 400px;
+    width: 600px;
 }
 form[name="form_filtre_sorties"]{
     display: flex;

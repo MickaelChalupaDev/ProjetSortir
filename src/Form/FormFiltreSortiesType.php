@@ -20,22 +20,19 @@ class FormFiltreSortiesType extends AbstractType
     {
         $builder
             ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :' ])
-            ->add('nom', TextType::class, ['mapped' => false, 'label' => 'Le nom de la sortie contient :'])
+            ->add('nom', TextType::class, ['mapped' => false, 'label' => 'Le nom de la sortie contient :','required' => false])
             ->add('entre', DateTimeType::class, ['mapped' => false,'label' => 'Entre :',
                 'widget' => 'single_text',
-                'attr' => [ 'class' => 'js-datetimepicker']])
+                'attr' => [ 'class' => 'js-datetimepicker'],
+                'required' => false,
+            ])
             ->add('et', DateType::class, ['mapped' => false,'label' => 'Et :',
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker'],
+                'required' => false,
             ])
 //            ->add('organisateur', )
-            ->add('nom', TextType::class, ['mapped' => false,
-                'label' => 'Nom du campus',
-                'attr' => [
-                    'placeholder' => 'Le nom contient...',
-                    'class' => 'form-control'
-                ]
-            ])
+
             ->add('S0', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false,
@@ -55,7 +52,8 @@ class FormFiltreSortiesType extends AbstractType
             ->add('Rechercher', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
-                ]
+                ],
+                'label' => 'Rechercher'
             ]);
 
 
@@ -64,7 +62,7 @@ class FormFiltreSortiesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' =>Campus::class,
+            'data_class' =>Sortie::class,
             'allow_extra_fields' => true
         ]);
     }

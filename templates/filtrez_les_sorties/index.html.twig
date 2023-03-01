@@ -24,7 +24,7 @@
 
                 </tr>
                 <tr>
-                    <td> {{ form_row(form.nom) }} </td>
+                    <td> {{ form_label(form.nom) }} {{ form_widget(form.nom) }}</td>
                 </tr>
                 <tr>
                     <td>
@@ -47,10 +47,14 @@
             <th>Date de fin</th>
             <th>Inscrits / Places</th>
             <th>État</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
             <th>Actions</th>
+
         </tr>
         </thead>
         <tbody>
+        {% if (sorties is defined) %}
         {% for sortie in sorties %}
         <tr>
             <td>{{ sortie.nom }}</td>
@@ -64,8 +68,10 @@
             </td>
         </tr>
         {% endfor %}
+        {% endif %}
         </tbody>
     </table>
+    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_creation_sortie') }}">Créer une sortie</a> </button>
 </div>
 {% endblock %}
 
