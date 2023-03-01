@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 class CityGestionController extends AbstractController
 {
-    #[Route('/city/gestion', name: 'app_city_gestion')]
+    #[Route('/admin/city/gestion', name: 'app_city_gestion')]
     public function index(VilleRepository $villeRepository ,Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -39,13 +39,12 @@ class CityGestionController extends AbstractController
             $entityManager->persist($ajout);
             $entityManager->flush();
 
-
             $this->addFlash('success', 'La ville a bien été ajoutée');
             return $this->redirectToRoute('app_city_gestion');
         }
 
+
         return $this->render('city_gestion/cities.html.twig', [
-            'remove' => $remove ?? null,
             'search' => $search ?? null,
             'searchCode' => $searchCode ?? null,
             'cityForm' => $cityForm->createView(),

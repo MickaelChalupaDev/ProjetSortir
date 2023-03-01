@@ -17,12 +17,13 @@ class ModifCityController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $m = new Ville();
+
         $modifForm = $this->createForm(ModifCityType::class, $m);
         $modifForm->handleRequest($request);
 
         if ($modifForm->isSubmitted() && $modifForm->isValid()) {
-            $modifForm->getData();
-            
+            $m = $modifForm->getData();
+
             $entityManager->flush();
 
 
