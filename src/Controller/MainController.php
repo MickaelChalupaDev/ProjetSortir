@@ -6,27 +6,24 @@ use App\Entity\Campus;
 use App\Form\CampusType;
 use App\Repository\CampusRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_home")
+     * @Route("/", name="app_home")
      */
-    public function home(Request $request)
+    public function index(Security $security): Response
     {
-
-        $campus = new Campus();
-        $form = $this->createForm(CampusType::class, $campus);
-        $form->handleRequest($request);
-        // dd($this->getUser());
-       if (!$this->getUser()) {
-
-            return $this->redirectToRoute('app_login');
+        // Si l'utilisateur est connecté, on redirige vers le contrôleur SortieController
+        if ($security->getUser()) {
+            return $this->redirectToRoute('app_filtre_sortie');
         }
-        return $this->render('main/home.html.twig', [
-            'form' => $form->createView()
-        ]);
+
+        // Sinon, on redirige vers le contrôleur SecurityController
+        return $this->redirectToRoute('app_login');
     }
 }
+

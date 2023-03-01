@@ -87,6 +87,9 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDateHeureDebut(): ?\DateTimeInterface
     {
         return $this->dateHeureDebut;
@@ -99,6 +102,9 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDateLimiteInscription(): ?\DateTimeInterface
     {
         return $this->dateLimiteInscription;
