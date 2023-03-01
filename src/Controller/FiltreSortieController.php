@@ -28,14 +28,24 @@ class FiltreSortieController extends AbstractController
             $request->query->get('dateHeureDebut'),
             $request->query->get('dateLimiteInscription'),
             $request->query->get('organisateur'),
-           // $request->query->get('passees')
+        // $request->query->get('passees')
         );
 
-        // Afficher les sorties
-        return $this->render('filtrez_les_sorties/index.html.twig', [
-            'sorties' => $sorties,
-            'form' => $form->createView(),
-        ]);
-    }
+
+
+
+            // Afficher les sorties
+            return $this->render('filtrez_les_sorties/index.html.twig', [
+                'sorties' => $sorties,
+                'form' => $form->createView(),
+            ]);
+        }
+
+
+
+
+
 }
+
+
 

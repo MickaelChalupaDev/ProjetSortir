@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,9 +18,9 @@ class FormFiltreSortiesType extends AbstractType
         $builder
             ->add('campus')
             ->add('nom')
-            ->add('dateHeureDebut')
-            ->add('dateLimiteInscription')
-            ->add('organisateur')
+            ->add('dateHeureDebut', DateType::class)
+            ->add('dateLimiteInscription', DateType::class)
+            ->add('organisateur', )
             ->add('nom', TextType::class, [
                 'label' => 'Nom du campus',
                 'attr' => [

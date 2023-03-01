@@ -45,7 +45,7 @@ class SortieRepository extends ServiceEntityRepository
 
 
     public function findSortiesByFilters(
-        ?string             $campus,
+       ? string           $campus,
        ? string             $nom,
        ? DateTimeInterface $dateHeureDebut,
        ? DateTimeInterface $dateLimiteInscription,
