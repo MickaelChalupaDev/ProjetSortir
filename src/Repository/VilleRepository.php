@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function PHPUnit\Framework\returnArgument;
 
 /**
  * @extends ServiceEntityRepository<Ville>
@@ -38,6 +39,19 @@ class VilleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function searchCity($criteria)
+    {
+        return $this->createQueryBuilder('v')
+            ->where('v.nom LIKE :nom')
+            ->setParameter('nom', '%'.$criteria['nom'].'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
 
 //    /**
 //     * @return Ville[] Returns an array of Ville objects

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+{% include('navbar.html.twig') %}
+<div class="maSortie">
+
+    <table name="tableAnnulerSortie">
+        <tr>
+            <td> Nom de la sortie :  </td>
+            <td> {{ sortie.nom }}</td>
+
+        </tr>
+        <tr>
+            <td> Date et heure de sortie :  </td>
+            <td> {{ sortie.dateHeureDebut |date('Y-m-d')  }}</td>
+
+        </tr>
+        <tr>
+            <td> Campus :</td>
+            <td> {{ sortie.campus.nom }}  </td>
+
+        </tr>
+        <tr>
+            <td> Lieu :</td>
+            <td> {{ sortie.Lieu.nom ~ ' rue ' ~ sortie.lieu.rue ~' ' ~ sortie.lieu.ville.codePostal ~ ' ' ~ sortie.lieu.ville.nom}}  </td>
+        </tr>
+        <tr>
+
+        </tr>
+
+        {{ form_start(annulerSortieForm) }}
+        <tr>
+            <td colspan="2">
+                {{ form_row(annulerSortieForm.infosSortie) }}
+            </td>
+        <tr>
+            <td>
+                {{ form_row(annulerSortieForm.enregistrer) }}
+            </td>
+            <td>
+                <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+            </td>
+        </tr>
+        {{ form_end(annulerSortieForm) }}
+    </table>
+</div>
+    {% endblock %}

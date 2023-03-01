@@ -1,29 +1,71 @@
 {% extends 'base.html.twig' %}
 
+    {% block title %}
+        {{ parent() }}
+    {% endblock %}
+
 {% block body %}
 
-    <h1 class="titre">Gestion des villes</h1>
+    <div class="container-fluid">
+       {% include('navbar.html.twig') %}
+        <div>
+            <div class="vide"></div>
 
-    //todo: gestion des villes en tant qu'admin
-    <table style="border: 1px solid black">
-        <th style="width: 30%; border: 1px solid black">Nom</th>
-        <th style="width: 30%; border: 1px solid black">Code Postale</th>
-        <th style="width: 30%; border: 1px solid black">Actions</th>
+            <h2><u>Filtrer les villes</u></h2>
+            {{ form_start(cityForm) }}
+            {{ form_label(cityForm.nom, 'Nom de la ville') }}
+            {{ form_widget(cityForm.nom) }}
+            {{ form_label(cityForm.codePostal, 'Code postal') }}
+            {{ form_widget(cityForm.codePostal) }}
+            {#        <button type="submit" class="btn btn-primary">Rechercher</button> #}
+            {{ form_end(cityForm) }}
 
-        {# ICI ON RÉCUPÈRE TOUS LES VILLES POUR POUVOIR LES MODIFIER #}
-        {% for s in search %}
-        <tr style="border: 1px solid black">
-            <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
-            <td style="text-align: center; border: 1px solid black">{{ s.codePostal }}</td>
-            <td style="text-align: center; border: 1px solid black">
-                <a href="#">Modifier</a>
-                <a href="#">Supprimer</a>
-                {% endfor %}
-        </tr>
-    </table>
-{% endblock %}
+        </div>
 
-{% block title %}
+        <div class="vide"></div>
 
+        {% if app.request.method == 'POST' %}
+            <div>
+                <h2><u>Résultat de la recherche</u></h2>
+                <table class="table table-bordered table-striped table-hover">
+                    <th style="width: 30%; border: 1px solid black">Nom</th>
+                    <th style="width: 30%; border: 1px solid black">Code Postale</th>
+                    <th style="width: 30%; border: 1px solid black">Actions</th>
+
+                    {# ICI ON RÉCUPÈRE TOUS LES VILLES POUR POUVOIR LES MODIFIER #}
+                    {% for s in search %}
+                    <tr style="border: 1px solid black">
+                        <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
+                        <td style="text-align: center; border: 1px solid black">{{ s.codePostal }}</td>
+                        <td style="text-align: center; border: 1px solid black">
+                            <a href="{{ path('app_modif_city') }}">
+                                <button class="btn btn-primary" type="submit">Modifier</button>
+                            </a>
+                            <a href="#">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </a>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+
+                        <td style="width: 30%; border: 1px solid black">
+                            {{ form_start(ajoutForm) }}
+                            {{ form_label(ajoutForm.nom, 'Nom de la ville') }}
+                            {{ form_widget(ajoutForm.nom) }}
+
+                        </td>
+                        <td style="width: 30%; border: 1px solid black">
+                            {{ form_label(ajoutForm.codePostal, 'Code postal') }}
+                            {{ form_widget(ajoutForm.codePostal) }}
+                        </td>
+                        <td style="width: 30%; border: 1px solid black">
+                            {{ form_end(ajoutForm) }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 

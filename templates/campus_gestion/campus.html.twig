@@ -1,28 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-
-    <h1 class="titre">Gestion des Campus</h1>
-
-    //todo : gestion des campus en tant qu'admin
-    <table style="border: 1px solid black">
-        <th style="width: 30%; border: 1px solid black">Campus</th>
-        <th style="width: 30%; border: 1px solid black">Actions</th>
-
-    {# ICI ON RÉCUPÈRE TOUS LES CAMPUS POUR POUVOIR LES MODIFIER #}
-        {% for s in search %}
-        <tr style="border: 1px solid black">
-            <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
-            <td style="text-align: center; border: 1px solid black">
-                <a href="#">Modifier</a>
-                <a href="#">Supprimer</a>
-        {% endfor %}
-        </tr>
-    </table>
-
-{% endblock %}
-
 {% block title %}
 
 {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+       {% include('navbar.html.twig') %}
+
+
+        <div class="vide"></div>
+        <div>
+            {{ form_start(campusForm) }}
+            <h2><u>Filtrer les sites</u></h2>
+            {{ form_label(campusForm.nom, 'Nom du campus') }}
+            {{ form_widget(campusForm.nom) }}
+            {{ form_end(campusForm) }}
+
+        </div>
+
+        <div class="vide"></div>
+
+
+        {# ICI ON MET LA CONDITION S'IL Y A METHODE POST APPELER LORS DE L'ENVOI ON AFFICHE #}
+        {% if app.request.method == 'POST' %}
+            <div>
+                <h2><u>Résultat de la recherche</u></h2>
+                <table class="table table-bordered table-striped table-hover">
+                    <th style="width: 30%; border: 1px solid black">Campus</th>
+                    <th style="width: 30%; border: 1px solid black">Actions</th>
+
+                    {# ICI ON RÉCUPÈRE TOUS LES CAMPUS POUR POUVOIR LES MODIFIER #}
+                    {% for s in search %}
+                    <tr style="border: 1px solid black">
+                        <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
+                        <td style="text-align: center; border: 1px solid black">
+                            <a href="{{ path('app_modif_campus') }}">
+                                <button class="btn btn-primary" type="submit">Modifier</button>
+                            </a>
+                            <a href="#">
+                                <button class="btn btn-danger" type="submit">Supprimer</button>
+                            </a>
+                        </td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="width: 30%; border: 1px solid black">
+                            {{ form_start(ajoutCampusForm) }}
+                            {{ form_widget(ajoutCampusForm) }}
+                        </td>
+                        <td style="width: 30%; border: 1px solid black">
+                            {{ form_end(ajoutCampusForm) }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+
 

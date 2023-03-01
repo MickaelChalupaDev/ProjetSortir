@@ -2,25 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Campus;
+use App\Entity\Ville;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CampusType extends AbstractType
+class CityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class, [
-                'label' => 'Nom du campus',
-                'attr' => [
-                    'placeholder' => 'Le nom contient...',
-                    'class' => 'form-control'
-                ]
+            ->add('nom', TextType::class
+            )
+
+            ->add('codePostal', TextType::class, [
+                'label' => 'Code postal'
+
             ])
             ->add('Rechercher', SubmitType::class, [
                 'attr' => [
@@ -33,7 +33,7 @@ class CampusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Campus::class,
+            'data_class' => Ville::class,
         ]);
     }
 }
