@@ -76,12 +76,12 @@ form{
     flex-direction: column;
     width: 450px;
 }
-form>div{
+form[name="sortie"]>div{
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
 }
-form>div>input{
+form[name="sortie"]>div>input{
     width: 188px;
 }
 .profilValidation{
@@ -268,4 +268,30 @@ form[name="creation_sortie"]{
 }
 .result-sortie{
     border: 1px solid black;
+}
+.tableAccueil{
+
+}
+.container_accueil{
+    display: flex;
+    flex-direction: column;
+    justify-content:left;
+    width: 100%;
+}
+table[name="tableAccueil"]>tbody>tr>td{
+    width: 400px;
+}
+form[name="form_filtre_sorties"]{
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    width: 100%;
+}
+#form_filtre_sorties_entre{
+    width: 150px;
+}
+#participant{
+    display:  flex;
+    flex-direction: column;
+   text-align: right;
 }
