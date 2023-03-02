@@ -4,8 +4,6 @@
 
 {% block body %}
 <div class="container-fluid">
-
-
     <div>
         <div class="vide1"></div>
     <div class="monProfil">
@@ -20,9 +18,11 @@
         {{ form_row(userForm.photo) }}
        <div class="profilValidation">
            {{ form_row(userForm.enregistrer) }}
-           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}">Annuler</a> </button>
        </div>
         {{ form_end(userForm) }}
     </div>
+    </div>
+</div>
 {% endblock %}
 

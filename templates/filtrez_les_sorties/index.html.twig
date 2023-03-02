@@ -81,7 +81,11 @@
                 {% endfor %}
             </td>
             <td>
-                {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}.
+                {% if (sortie.organisateur.nom == app.user.nom) %}
+              <a href="{{ path('user_profil') }}">   {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}. </a>
+                {% else %}
+                    <a href="{{ path('autre_profil', {'id':sortie.organisateur.id}) }}">   {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}. </a>
+                {% endif %}
             </td>
             <td>
                 {% for participant in sortie.users %}

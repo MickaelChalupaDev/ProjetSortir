@@ -33,7 +33,7 @@ class UserController extends AbstractController
               $entityManager->persist($user);
               $entityManager->flush();
               $this->addFlash('success','Profil modifié avec succès !');
-              return $this->redirectToRoute('app_home');
+              return $this->redirectToRoute('app_filtre_sortie');
         }
 
         return $this->render('user/monProfil.html.twig', [

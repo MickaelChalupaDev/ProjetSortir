@@ -54,7 +54,15 @@
 
             {% for participant in sortie.getUsers() %}
                 <tr>
-                    <td> {{ participant.prenom }}  </td> <td> {{ participant.prenom ~ ' ' ~ participant.nom }} </td>
+                    <td> {{ participant.prenom }}  </td>
+                    <td>
+                        {% if (participant.nom == app.user.nom) %}
+                            <a href="{{ path('user_profil') }}">  {{ participant.prenom ~ ' ' ~ participant.nom }} </a>
+                        {% else %}
+                            <a href="{{ path('autre_profil', {'id':participant.id}) }}"> {{ participant.prenom ~ ' ' ~ participant.nom }} </a>
+                        {% endif %}
+                    </td>
+
                 </tr>
             {% endfor %}
 
