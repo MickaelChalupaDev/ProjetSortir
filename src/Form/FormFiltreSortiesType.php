@@ -35,15 +35,15 @@ class FormFiltreSortiesType extends AbstractType
 
             ->add('S0', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties dont je suis l\'organisateur/trice',
-                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
+                'required' => false,'attr'=> ['class'=> 'form-check-input']
             ])
             ->add('S1', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties auxquelles je suis inscrit/e',
-                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
+                'required' => false,'attr'=> ['class'=> 'form-check-input']
             ])
             ->add('S2', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties auxquelles je ne suis pas inscrit/e',
-                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
+                'required' => false,'attr'=> ['class'=> 'form-check-input']
             ])
             ->add('S3', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties passées',
