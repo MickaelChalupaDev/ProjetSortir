@@ -42,11 +42,15 @@ class AppFixtures extends Fixture
         $manager->persist($etat);
         $manager->flush();
         $etat = new Etat();
-        $etat->setLibelle('passée');
+        $etat->setLibelle('Passée');
         $manager->persist($etat);
         $manager->flush();
         $etat = new Etat();
         $etat->setLibelle('Annulée');
+        $manager->persist($etat);
+        $manager->flush();
+        $etat = new Etat();
+        $etat->setLibelle('Historique');
         $manager->persist($etat);
         $manager->flush();
 
