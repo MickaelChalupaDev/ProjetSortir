@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<div id="body">
     <div class="container-fluid">
 
         <div class="vide"></div>
@@ -34,10 +34,10 @@
                     <tr style="border: 1px solid black">
                         <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
                         <td style="text-align: center; border: 1px solid black">
-                            <a href="{{ path('app_modif_campus') }}">
+                            <a href="{{ path('app_modif_campus', {"id": s.id}) }}"  style="text-decoration: none">
                                 <button class="btn btn-primary" type="submit">Modifier</button>
                             </a>
-                            <a href="#">
+                            <a href="{{ path('app_campus_delete', {"id": s.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce Campus ???')" style="text-decoration: none">
                                 <button class="btn btn-danger" type="submit">Supprimer</button>
                             </a>
                         </td>
@@ -57,7 +57,7 @@
             </div>
         {% endif %}
     </div>
-
+</div>
 {% endblock %}
 
 

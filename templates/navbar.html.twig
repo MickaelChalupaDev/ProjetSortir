@@ -1,4 +1,6 @@
 {% block body %}
+{# ICI ON AFFICHE SEULEMENT LA NAVBAR QUE SI LE USER EST CONNECTÉ SINON OON AFFICHE SEULEMENT LE TITRE#}
+    {% if app.user %}
 <div class="row">
             <div class="col-6"><h1>Sortir.Com</h1></div>
             <div class="col">
@@ -15,6 +17,9 @@
                 </ul>
             </div>
         </div>
+    {% else %}
+    <h1 class="titre1">Sortir.com</h1>
+    {% endif %}
 {% endblock %}
 
 {% block title %}

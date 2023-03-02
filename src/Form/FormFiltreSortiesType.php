@@ -19,35 +19,35 @@ class FormFiltreSortiesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :' ])
-            ->add('nom', TextType::class, ['mapped' => false, 'label' => 'Le nom de la sortie contient :','required' => false])
+            ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :', 'attr'=> ['class'=> 'form-select'] ])
+            ->add('nom', TextType::class, ['mapped' => false, 'label' => 'Le nom de la sortie contient :','required' => false, 'attr'=> ['class'=> 'form-control']])
             ->add('entre', DateTimeType::class, ['mapped' => false,'label' => 'Entre :',
                 'widget' => 'single_text',
-                'attr' => [ 'class' => 'js-datetimepicker'],
+                'attr' => [ 'class' => 'js-datetimepicker form-control', 'style' => 'width: 600px;'],
                 'required' => false,
             ])
             ->add('et', DateType::class, ['mapped' => false,'label' => 'Et :',
                 'widget' => 'single_text',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker form-control'],
                 'required' => false,
             ])
 //            ->add('organisateur', )
 
             ->add('S0', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties dont je suis l\'organisateur/trice',
-                'required' => false,
+                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
             ])
             ->add('S1', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties auxquelles je suis inscrit/e',
-                'required' => false,
+                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
             ])
             ->add('S2', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties auxquelles je ne suis pas inscrit/e',
-                'required' => false,
+                'required' => false,'attr'=> ['class'=> 'form-check-input', 'checked' => 'checked']
             ])
             ->add('S3', CheckboxType::class, ['mapped' => false,
                 'label'    => 'Sorties passées',
-                'required' => false,
+                'required' => false,'attr'=> ['class'=> 'form-check-input']
             ])
             ->add('Rechercher', SubmitType::class, [
                 'attr' => [

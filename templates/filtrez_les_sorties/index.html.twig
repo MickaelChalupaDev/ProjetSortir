@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    <div id="body">
+<div class="container-fluid">
+<div class="vide"></div>
 <div class="container_accueil">
-    <div >
+    <div id="tableau-participant">
         <div id="participant"> Date du jour : {{ "now"|date("m/d/Y")  }}</div>
         <div  id="participant"> Participant : {{ app.user.prenom }} &nbsp; {{ app.user.nom }}</div>
     </div>
+    <div class="vide3"></div>
     {{ form_start(form) }}
 
             <table name="tableAccueil" class="tableAccueil">
@@ -133,8 +136,9 @@
         {% endif %}
         </tbody>
     </table>
-    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_creation_sortie') }}">Créer une sortie</a> </button>
+    <a class="profilValidationA" href="{{ path('app_creation_sortie') }}"><button class="btn btn-primary">Créer une sortie</button></a>
 </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

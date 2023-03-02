@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div id="body">
     <div class="vide"></div>
 
     <h2><u>Modification de ville</u></h2>
@@ -10,6 +11,7 @@
         {{ form_start(modifForm) }}
         {{ form_widget(modifForm) }}
         {{ form_end(modifForm) }}
+    </div>
     </div>
 {% endblock %}
 

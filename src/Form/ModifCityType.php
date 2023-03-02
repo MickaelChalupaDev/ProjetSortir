@@ -31,6 +31,7 @@ class ModifCityType extends AbstractType
             ->add('Modifier', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary',
+                    'onclick' => 'return confirm(\'Voulez-vous vraiment modifier cette ville ?\')',
                 ],
             ])
         ;
