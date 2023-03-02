@@ -49,6 +49,7 @@ class FiltreSortieController extends AbstractController
 
             $sorties = $repository->findSortiesByFilters($campus,$nom,$entre,$et,$organisateur, $participant, $val, $etat);
 
+
             return $this->render('filtrez_les_sorties/index.html.twig', [
                 'sorties' => $sorties,
                 'form' => $form->createView(),

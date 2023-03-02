@@ -9,6 +9,8 @@ use App\Entity\User;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Types\Boolean;
 
@@ -92,10 +94,14 @@ class SortieRepository extends ServiceEntityRepository
             $qb->andWhere('users.id = :participant')
                 ->setParameter('participant', $participant->getId());
         }
+    $expr=$this->getEntityManager()->getExpressionBuilder();
         if (($participant->getId() !== null) and ($val === false)) {
+
+
             $qb->leftJoin('s.users', 'users');
-            $qb->andWhere('users.id != :participant')
+            $qb->andWhere($expr->notIn('users.id',':participant'))
                 ->setParameter('participant', $participant->getId());
+
         }
         if ($etat->getId() !== null) {
             $qb->andWhere('s.etat = :etat')

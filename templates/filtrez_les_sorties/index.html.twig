@@ -78,7 +78,7 @@
                 {% endfor %}
             </td>
             <td>
-                {{ sortie.organisateur.nom }} &nbsp; {{ sortie.organisateur.prenom }}
+                {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}.
             </td>
             <td>
                 {% for participant in sortie.users %}
@@ -98,26 +98,34 @@
                     <span> <a href="{{ path('app_publier_sortie', {'id':sortie.id}) }}">Publier</a></span>
 
                 {% endif %}
-                {% if (sortie.etat.libelle=='Ouverte' and sortie.organisateur.id == app.user.id)  %}
-                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
-                    <span> - </span>
-                    <span> <a href="{{ path('app_annuler', {'id':sortie.id}) }}">Annuler </a></span>
+                {% if (sortie.etat.libelle=='Ouverte')%}
+                    {%  if (sortie.organisateur.id == app.user.id)  %}
+                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                        <span> - </span>
+                        <span> <a href="{{ path('app_annuler', {'id':sortie.id}) }}">Annuler </a></span>
+                    {% else %}
+
+                            {% set val=0 %}
+                            {% for participant in sortie.users %}
+                                {% if (participant.id == app.user.id )  %}
+                                    {% set val=val+1 %}
+                                {%  endif %}
+                            {% endfor %}
+                                {% if val  %}
+                                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                                    <span> - </span>
+                                    <span> <a href="{{ path('app_seDesister', {'id':sortie.id}) }}">Se désister </a></span>
+                                {% else %}
+                                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                                        <span> - </span>
+                                        <span> <a href="{{ path('app_sInscrire', {'id':sortie.id}) }}">S'inscrire </a></span>
+                                {% endif %}
+
+
+                    {% endif %}
 
                 {% endif %}
-                {% for participant in sortie.users %}
-                    {% if (participant.id == app.user.id and sortie.etat.libelle=='Ouverte' and sortie.organisateur.id != app.user.id)  %}
-                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
-                        <span> - </span>
-                        <span> <a href="{{ path('app_seDesister', {'id':sortie.id}) }}">Se désister </a></span>
-                    {% endif %}
-                {% else %}
-                    {% if sortie.organisateur.id != app.user.id %}
-                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
-                        <span> - </span>
-                        <span> <a href="{{ path('app_sInscrire', {'id':sortie.id}) }}">S'inscrire </a></span>
 
-                    {% endif %}
-                {% endfor %}
 
             </td>
         </tr>

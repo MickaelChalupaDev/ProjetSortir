@@ -166,10 +166,11 @@ class SortieController extends AbstractController
         $unMoisAuparavant = new DateTime();
         $unMoisAuparavant->modify('-30 day');
 
+/*
         if($sortie->getDateHeureDebut() <= $unMoisAuparavant) {
             $this->addFlash('fail', ' Cette sortie n\'est plus accessible !');
             return $this->redirectToRoute('app_filtre_sortie');
-        }
+        }*/
         $users=$sortie->getUsers();
        foreach ($users as $user)
         {
@@ -192,6 +193,11 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_filtre_sortie');
         }
         $user=$this->getUser();
+        if ($user==$sortie->getOrganisateur()){
+            $this->addFlash('fail', 'Vous êtes l\'organisateur de cette sortie !');
+
+            return $this->redirectToRoute('app_filtre_sortie');
+        }
         $sortie->addUser($user);
 
         $entityManager->persist($sortie);

@@ -292,4 +292,5 @@ form[name="form_filtre_sorties"]{
     display:  flex;
     flex-direction: column;
    text-align: right;
+    margin-right: 200px;
 }
