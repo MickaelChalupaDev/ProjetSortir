@@ -15,11 +15,21 @@ class CityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class
+            ->add('nom', TextType::class, [
+                'label' => 'Nom de la ville',
+                'attr' => [
+                    'placeholder' => 'Le nom contient...',
+                    'class' => 'form-control'
+                ]
+            ]
             )
 
             ->add('codePostal', TextType::class, [
-                'label' => 'Code postal'
+                'label' => 'Code postal',
+                'attr' => [
+                    'placeholder' => 'Code postal...',
+                    'class' => 'form-control'
+                ]
 
             ])
             ->add('Rechercher', SubmitType::class, [

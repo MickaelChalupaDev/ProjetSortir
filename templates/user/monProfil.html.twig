@@ -3,11 +3,10 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+    <div id="body">
 <div class="container-fluid">
-{% include('navbar.html.twig') %}
-
     <div>
-        <div class="vide1"></div>
+        <div class="vide3"></div>
     <div class="monProfil">
 
         {{ form_start(userForm) }}
@@ -20,9 +19,12 @@
         {{ form_row(userForm.photo) }}
        <div class="profilValidation">
            {{ form_row(userForm.enregistrer) }}
-           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+           <a class="profilValidationA" href="{{ path('app_home') }}"><button class="btn btn-primary">Annuler</button></a>
        </div>
         {{ form_end(userForm) }}
+    </div>
+    </div>
+</div>
     </div>
 {% endblock %}
 

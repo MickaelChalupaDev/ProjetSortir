@@ -12,16 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModifCampusController extends AbstractController
 {
-    #[Route('/modif/campus', name: 'app_modif_campus')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modif/campus/{id}', name: 'app_modif_campus')]
+    public function index(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $m = new Campus();
+        $m = $entityManager->getRepository(Campus::class)->find($id);
         $modifCampForm = $this->createForm(ModifCampusType::class, $m);
         $modifCampForm->handleRequest($request);
 
-if ($modifCampForm->isSubmitted() && $modifCampForm->isValid()) {
-            $modifCampForm->getData();
-
+        if ($modifCampForm->isSubmitted() && $modifCampForm->isValid()) {
+            $m = $modifCampForm->getData();
+            $entityManager->persist($m);
             $entityManager->flush();
 
             $this->addFlash('success', 'Le campus a bien été modifié');

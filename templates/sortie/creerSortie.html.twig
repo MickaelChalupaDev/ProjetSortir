@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
+<div id="body">
+    <div class="vide"></div>
     <div class="maSortie">
         {{ form_start(creationSortieForm) }}
 
@@ -63,10 +64,7 @@
                     <div class="modifierSortieBtn" >
                         {{ form_row(creationSortieForm.enregistrer)}}
                         {{ form_row(creationSortieForm.publier)}}
-                        <div class="modifierSortieBtn">
-                            <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}">Annuler</a> </button>
-                        </div>
-
+                        <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-warning">Annuler</button></a>
                     </div>
                 </td>
             </tr>
@@ -74,6 +72,7 @@
         </table>
         {{ form_end(creationSortieForm) }}
     </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

@@ -5,7 +5,7 @@
     {% endblock %}
 
 {% block body %}
-
+<div id="body">
     <div class="container-fluid">
         <div>
             <div class="vide"></div>
@@ -37,10 +37,10 @@
                         <td style="text-align: center; border: 1px solid black">{{ s.nom }}</td>
                         <td style="text-align: center; border: 1px solid black">{{ s.codePostal }}</td>
                         <td style="text-align: center; border: 1px solid black">
-                            <a href="{{ path('app_modif_city') }}">
+                            <a href="{{ path('app_modif_city', {"id": s.id}) }}" style="text-decoration: none">
                                 <button class="btn btn-primary" type="submit">Modifier</button>
                             </a>
-                            <a href="#">
+                            <a href="{{ path('app_citygestion_delete', {"id": s.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette ville ???')" style="text-decoration: none">
                                 <button class="btn btn-danger">Supprimer</button>
                             </a>
                         </td>
@@ -66,5 +66,6 @@
             </div>
         {% endif %}
     </div>
+</div>
 {% endblock %}
 

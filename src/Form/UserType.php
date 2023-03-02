@@ -25,20 +25,20 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prenom', TextType::class,['label'=>'Prénom :'])
-            ->add('nom', TextType::class,['label'=>'Nom :'])
-            ->add('telephone', IntegerType::class,['label'=>'Téléphone :'])
-            ->add('email', EmailType::class,['label'=>'Email :'])
-            ->add('password', PasswordType::class,['label'=>'Mot de passe :'])
+            ->add('prenom', TextType::class,['label'=>'Prénom :', 'attr'=>['class'=>'form-control']])
+            ->add('nom', TextType::class,['label'=>'Nom :', 'attr'=>['class'=>'form-control']])
+            ->add('telephone', IntegerType::class,['label'=>'Téléphone :', 'attr'=>['class'=>'form-control']])
+            ->add('email', EmailType::class,['label'=>'Email :', 'attr'=>['class'=>'form-control']])
+            ->add('password', PasswordType::class,['label'=>'Mot de passe :', 'attr'=>['class'=>'form-control']])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe :'],
-                'second_options' => ['label' => 'Confirmation :']])
-            ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :' ])
-            ->add('photo', FileType::class,['label'=>'Photo :','required'   => false])
-            ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer'])
+                'first_options'  => ['label' => 'Mot de passe :', 'attr'=>['class'=>'form-control']],
+                'second_options' => ['label' => 'Confirmation :', 'attr'=>['class'=>'form-control']]])
+            ->add('campus', EntityType::class, ['class'=> Campus::class, 'choice_label'=> 'nom', 'label'=> 'Campus :', 'attr'=>['class'=>'form-control'] ])
+            ->add('photo', FileType::class,['label'=>'Photo :','required'   => false, 'attr'=>['class'=>'form-control']])
+            ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer', 'attr'=>['class'=>'btn btn-primary']])
 
         ;
     }
