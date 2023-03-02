@@ -42,10 +42,10 @@
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th>Nom</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
-            <th>Inscrits / Places</th>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Inscrits/places</th>
             <th>État</th>
             <th>Inscrit</th>
             <th>Organisateur</th>
@@ -59,12 +59,66 @@
         <tr>
             <td>{{ sortie.nom }}</td>
             <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
-            <td>{{ sortie.dateLimiteInscription|date('d/m/Y H:i') }}</td>
-            {#  <td>{{ sortie.inscriptions.count }} / {{ sortie.nbInscriptionMax }}</td> #}
-            <td>{% if sortie.etat == 'Ouverte' %}<span class="badge badge-success">{{ sortie.etat }}</span>{% endif %}
-                {% if sortie.etat == 'Clôturée' %}<span class="badge badge-secondary">{{ sortie.etat }}</span>{% endif %}
-                {% if sortie.etat == 'Annulée' %}<span class="badge badge-danger">{{ sortie.etat }}</span>{% endif %}
-                {% if sortie.etat == 'Passée' %}<span class="badge badge-secondary">{{ sortie.etat }}</span>{% endif %}
+            <td>{{ sortie.dateLimiteInscription|date('d/m/Y') }}</td>
+            <td>{{ sortie.users.count }} / {{ sortie.nbInscriptionsMax }}</td>
+            <td>
+                {% if sortie.etat.libelle == 'Ouverte' %}<span> Ouvert</span>{% endif %}
+                {% if sortie.etat.libelle == 'Clôturée' %}<span>Fermé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Créée' %}<span>En création</span>{% endif %}
+                {% if sortie.etat.libelle == 'Annulée' %}<span>Annulé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Passée' %}<span> Passé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Activité en cours' %}<span> En cours</span>{% endif %}
+
+            </td>
+            <td>
+                {% for participant in sortie.users %}
+                    {% if participant.id == app.user.id %}
+                            <span> X</span>
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {{ sortie.organisateur.nom }} &nbsp; {{ sortie.organisateur.prenom }}
+            </td>
+            <td>
+                {% for participant in sortie.users %}
+                     {% if (participant.id == app.user.id and sortie.etat.libelle=='Activité en cours')  %}
+                         <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                     {% endif %}
+                {% endfor %}
+                {% if (sortie.etat.libelle=='Annulée')  %}
+                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                {% endif %}
+                {% if (sortie.etat.libelle=='Passée')  %}
+                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                {% endif %}
+                {% if (sortie.etat.libelle=='Créée')  %}
+                    <span> <a href="{{ path('app_sortie', {'id':sortie.id}) }}">Modifier </a></span>
+                    <span> - </span>
+                    <span> <a href="{{ path('app_publier_sortie', {'id':sortie.id}) }}">Publier</a></span>
+
+                {% endif %}
+                {% if (sortie.etat.libelle=='Ouverte' and sortie.organisateur.id == app.user.id)  %}
+                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                    <span> - </span>
+                    <span> <a href="{{ path('app_annuler', {'id':sortie.id}) }}">Annuler </a></span>
+
+                {% endif %}
+                {% for participant in sortie.users %}
+                    {% if (participant.id == app.user.id and sortie.etat.libelle=='Ouverte' and sortie.organisateur.id != app.user.id)  %}
+                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                        <span> - </span>
+                        <span> <a href="{{ path('app_seDesister', {'id':sortie.id}) }}">Se désister </a></span>
+                    {% endif %}
+                {% else %}
+                    {% if sortie.organisateur.id != app.user.id %}
+                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                        <span> - </span>
+                        <span> <a href="{{ path('app_sInscrire', {'id':sortie.id}) }}">S'inscrire </a></span>
+
+                    {% endif %}
+                {% endfor %}
+
             </td>
         </tr>
         {% endfor %}
