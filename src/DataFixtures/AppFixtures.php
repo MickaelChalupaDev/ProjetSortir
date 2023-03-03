@@ -49,6 +49,10 @@ class AppFixtures extends Fixture
         $etat->setLibelle('Annulée');
         $manager->persist($etat);
         $manager->flush();
+        $etat = new Etat();
+        $etat->setLibelle('Archiver');
+        $manager->persist($etat);
+        $manager->flush();
 
         //************ peuplement de la table Campus *************//
         $campus = new Campus();
