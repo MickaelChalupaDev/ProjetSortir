@@ -1,20 +1,160 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FiltrezLesSortiesController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div id="body">
+<div class="container-fluid">
+<div class="vide"></div>
+<div class="container_accueil">
+    <div id="tableau-participant">
+        <div id="participant"> Date du jour : {{ "now"|date("m/d/Y")  }}</div>
+        <div  id="participant"> Participant : {{ app.user.prenom }} &nbsp; {{ app.user.nom }}</div>
+    </div>
+    <div class="vide3"></div>
+    {{ form_start(form) }}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <table name="tableAccueil" class="tableAccueil">
+                <tr>
+                    <td> {{ form_row(form.campus) }} </td>
+                    <td rowspan="3">
+                       <table>
+                           <tr>  <td> &nbsp; </td> </tr>
+                           <tr>  <td> {{ form_widget(form.S0) }} {{ form_label(form.S0) }} </td> </tr>
+                           <tr>  <td> {{ form_widget(form.S1) }} {{ form_label(form.S1) }} </td> </tr>
+                           <tr>  <td> {{ form_widget(form.S2) }} {{ form_label(form.S2) }} </td> </tr>
+                           <tr>  <td> {{ form_widget(form.S3) }} {{ form_label(form.S3) }} </td> </tr>
+                       </table>
+                    </td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/ProjetSortir/src/Controller/FiltrezLesSortiesController.php'|file_link(0) }}">src/Controller/FiltrezLesSortiesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/ProjetSortir/templates/filtrez_les_sorties/index.html.twig'|file_link(0) }}">templates/filtrez_les_sorties/index.html.twig</a></code></li>
-    </ul>
+                </tr>
+                <tr>
+                    <td> {{ form_label(form.nom) }} {{ form_widget(form.nom) }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        Entre : {{ form_widget(form.entre) }}
+                            et : {{ form_widget(form.et) }}
+                    </td>
+                </tr>
+            </table>
+
+    {{  form_row(form.Rechercher) }}
+
+        {{ form_end(form) }}
 </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Inscrits/places</th>
+            <th>État</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% if (sorties is defined) %}
+        {% for sortie in sorties %}
+        <tr>
+            <td>{{ sortie.nom }}</td>
+            <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
+            <td>{{ sortie.dateLimiteInscription|date('d/m/Y') }}</td>
+            <td>{{ sortie.users.count }} / {{ sortie.nbInscriptionsMax }}</td>
+            <td>
+                {% if sortie.etat.libelle == 'Ouverte' %}<span> Ouvert</span>{% endif %}
+                {% if sortie.etat.libelle == 'Clôturée' %}<span>Fermé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Créée' %}<span>En création</span>{% endif %}
+                {% if sortie.etat.libelle == 'Annulée' %}<span>Annulé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Passée' %}<span> Passé</span>{% endif %}
+                {% if sortie.etat.libelle == 'Activité en cours' %}<span> En cours</span>{% endif %}
+
+            </td>
+            <td>
+                {% for participant in sortie.users %}
+                    {% if participant.id == app.user.id %}
+                            <span> X</span>
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {% if (sortie.organisateur.nom == app.user.nom) %}
+              <a href="{{ path('user_profil') }}">   {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}. </a>
+                {% else %}
+                    <a href="{{ path('autre_profil', {'id':sortie.organisateur.id}) }}">   {{ sortie.organisateur.nom  }} &nbsp; {{ sortie.organisateur.prenom |slice(0, 1)|upper }}. </a>
+                {% endif %}
+            </td>
+            <td>
+                {% for participant in sortie.users %}
+                     {% if (participant.id == app.user.id and sortie.etat.libelle=='Activité en cours')  %}
+                         <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                     {% endif %}
+                {% endfor %}
+                {% if (sortie.etat.libelle=='Annulée')  %}
+                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                {% endif %}
+                {% if (sortie.etat.libelle=='Passée')  %}
+                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                {% endif %}
+                {% if (sortie.etat.libelle=='Créée')  %}
+                    <span> <a href="{{ path('app_sortie', {'id':sortie.id}) }}">Modifier </a></span>
+                    <span> - </span>
+                    <span> <a href="{{ path('app_publier_sortie', {'id':sortie.id}) }}">Publier</a></span>
+
+                {% endif %}
+                {% if (sortie.etat.libelle=='Ouverte')%}
+                    {%  if (sortie.organisateur.id == app.user.id)  %}
+                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                        <span> - </span>
+                        <span> <a href="{{ path('app_annuler', {'id':sortie.id}) }}">Annuler </a></span>
+                    {% else %}
+
+                            {% set val=0 %}
+                            {% for participant in sortie.users %}
+                                {% if (participant.id == app.user.id )  %}
+                                    {% set val=val+1 %}
+                                {%  endif %}
+                            {% endfor %}
+                                {% if val  %}
+                                    <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                                    <span> - </span>
+                                    <span> <a href="{{ path('app_seDesister', {'id':sortie.id}) }}">Se désister </a></span>
+                                {% else %}
+                                        <span> <a href="{{ path('app_afficherSortie', {'id':sortie.id}) }}">Afficher </a></span>
+                                        <span> - </span>
+                                        <span> <a href="{{ path('app_sInscrire', {'id':sortie.id}) }}">S'inscrire </a></span>
+                                {% endif %}
+
+
+                    {% endif %}
+
+                {% endif %}
+
+
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <a class="profilValidationA" href="{{ path('app_creation_sortie') }}"><button class="btn btn-primary">Créer une sortie</button></a>
+</div>
+    </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    $('.js-datepicker').datepicker({
+        format:'yyyy.MM.dd'
+    });
+    $('.datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD hh:mm:ss'
+    });
+</script>
+{% endblock %}
+
+

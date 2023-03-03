@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% include('navbar.html.twig') %}
+<div id="body">
+    <div class="vide"></div>
     <div class="maSortie">
         {{ form_start(sortieForm) }}
 
@@ -50,7 +51,7 @@
             <td>
                 <div class="modifierSortieBtn">
                     {{ form_row(sortieForm.supprimer) }}
-                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}" disabled="@(!context.Validate())">Annuler</a> </button>
 
                 </div>
             </td>
@@ -59,6 +60,7 @@
     </table>
         {{ form_end(sortieForm) }}
     </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

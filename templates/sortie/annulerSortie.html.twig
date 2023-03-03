@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-{% include('navbar.html.twig') %}
+<div id="body">
+    <div class="vide"></div>
 <div class="maSortie">
 
     <table name="tableAnnulerSortie">
@@ -40,10 +41,11 @@
                 {{ form_row(annulerSortieForm.enregistrer) }}
             </td>
             <td>
-                <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+                <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}">Annuler</a> </button>
             </td>
         </tr>
         {{ form_end(annulerSortieForm) }}
     </table>
+</div>
 </div>
     {% endblock %}

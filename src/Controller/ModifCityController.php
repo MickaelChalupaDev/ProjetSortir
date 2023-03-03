@@ -13,16 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModifCityController extends AbstractController
 {
-    #[Route('/modif/city', name: 'app_modif_city')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modif/city/{id}', name: 'app_modif_city')]
+    public function index(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $m = new Ville();
+        $m = $entityManager->getRepository(Ville::class)->find($id);
         $modifForm = $this->createForm(ModifCityType::class, $m);
         $modifForm->handleRequest($request);
 
         if ($modifForm->isSubmitted() && $modifForm->isValid()) {
-            $modifForm->getData();
-            
+            $m = $modifForm->getData();
+            $entityManager->persist($m);
             $entityManager->flush();
 
 

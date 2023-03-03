@@ -1,29 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-6"><h1 class="titre1">Modification de Campus</h1></div>
-        <div class="col">
-            <ul class="nav justify-content-end">
+    <div id="body">
+    <div class="vide"></div>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('app_city_gestion') }}">Villes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('app_campus_gestion') }}">Campus</a></li>
-                {% endif %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('main_home') }}">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('user_profil') }}">Mon profil</a></li>
+    <h2><u>Modification de Campus</u></h2>
 
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="vide"></div>
     <div>
         {{ form_start(modifCampForm) }}
         {{ form_widget(modifCampForm) }}
         {{ form_end(modifCampForm) }}
     </div>
-</div>
+    </div>
 {% endblock %}
 
 {% block title %}

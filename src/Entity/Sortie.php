@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\LessThan;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
@@ -21,6 +22,7 @@ class Sortie
     private ?string $nom = null;
 
     #[ORM\Column]
+    #[Assert\Positive]
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -28,9 +30,11 @@ class Sortie
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[LessThan(propertyPath: 'dateHeureDebut')]
+    #[GreaterThanOrEqual('today')]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\Positive]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -89,6 +93,9 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDateHeureDebut(): ?\DateTimeInterface
     {
         return $this->dateHeureDebut;
@@ -101,6 +108,9 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDateLimiteInscription(): ?\DateTimeInterface
     {
         return $this->dateLimiteInscription;

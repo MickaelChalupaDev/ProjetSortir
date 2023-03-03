@@ -3,32 +3,53 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% include('navbar.html.twig') %}
+<div id="body">
+    <div class="vide"></div>
     <div class="maSortie">
         {{ form_start(creationSortieForm) }}
 
         <table name="tableModifierSortie">
             <tr>
                 <td> {{ form_row(creationSortieForm.nom) }}  </td>
-                <td> {{ form_row(creationSortieForm.campus) }}  </td>
+                <td> <div class="creerSortieTd">
+                        <div class="creerSortieTd0">  Campus :</div>
+                        <div>
+                            {% if (sortie.campus) %}
+                                {{ sortie.campus.nom}}
+                            {%  endif %}
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>   {{form_row(creationSortieForm.dateHeureDebut) }}  </td>
-                <td> {{ form_row(creationSortieForm.villes) }}  </td>
+                <td>  {{ form_row(creationSortieForm.villes) }}
+                </td>
             </tr>
             <tr>
                 <td> {{ form_row(creationSortieForm.dateLimiteInscription) }}  </td>
-                <td> {{ form_row(creationSortieForm.lieu) }}  </td>
+                <td> {{ form_row(creationSortieForm.lieu) }}
+                </td>
 
             </tr>
             <tr>
                 <td> {{ form_row(creationSortieForm.nbInscriptionsMax) }}  </td>
-                <td> <div class="modifierSortieTd0"> <div>  Rue :</div> <div> </div> </div> </td>
+                <td> <div class="creerSortieTd"> <div class="creerSortieTd0">  Rue :</div>
+                        <div id="rue" >
+
+                        </div>
+                    </div>
+                </td>
 
             </tr>
             <tr>
                 <td> {{ form_row(creationSortieForm.duree) }}  </td>
-                <td> <div class="modifierSortieTd1"> <div>  Code Postal :</div> <div> </div> </div> </td>
+                <td> <div class="creerSortieTd"> <div class="creerSortieTd0">  Code Postal :</div>
+                        <div id="codePostal">
+
+                        </div>
+                    </div>
+                </td>
 
             </tr>
             <tr>
@@ -43,10 +64,7 @@
                     <div class="modifierSortieBtn" >
                         {{ form_row(creationSortieForm.enregistrer)}}
                         {{ form_row(creationSortieForm.publier)}}
-                        <div class="modifierSortieBtn">
-                            <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
-                        </div>
-
+                        <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-warning" disabled="@(!context.Validate())" >Annuler</button></a>
                     </div>
                 </td>
             </tr>
@@ -54,6 +72,7 @@
         </table>
         {{ form_end(creationSortieForm) }}
     </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -66,6 +85,84 @@
             format: 'YYYY-MM-DD hh:mm:ss'
         });
 
+        function initListeVilles() {
+            fetch('http://localhost:8000/api/villes',{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then(response => {
+                    let options='';
+                    response.map(ville => {
+                        options+=`<option value ="${ville.id}"> ${ville.nom} </option>`
+                    })
+                    document.querySelector("#creation_sortie_villes").innerHTML=options
+
+                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        function initListeLieux() {
+            let villeIndex=document.getElementById("creation_sortie_villes").value;
+
+            fetch('http://localhost:8000/api/ville/'+villeIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then( (data) => {document.querySelector("#codePostal").innerHTML=data.codePostal;
+                                  document.querySelector("#rue").innerHTML=""; })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+            fetch('http://localhost:8000/api/lieux/'+villeIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then(response => {
+                    let options='';
+                    response.map(lieu => {
+                        options+=`<option value ="${lieu.id}"> ${lieu.nom} </option>`
+                    })
+                    document.querySelector("#creation_sortie_lieu").innerHTML=options;
+                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        function initRue() {
+            let lieuIndex=document.getElementById("creation_sortie_lieu").value;
+            //console.log(lieuIndex);
+            fetch('http://localhost:8000/api/rue/'+lieuIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then((data) => {if (typeof data.rue !=="undefined") { document.querySelector("#rue").innerHTML=data.rue;
+                    document.getElementById('creation_sortie_latitude').value=data.latitude;
+                    document.getElementById('creation_sortie_longitude').value=data.longitude;
+                }
+                                else { document.querySelector("#rue").innerHTML='';
+                    document.getElementById('creation_sortie_latitude').value='';
+                    document.getElementById('creation_sortie_longitude').value='';
+                                }
+                                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        window.onload = () => {
+            document.querySelector("#creation_sortie_lieu").innerHTML='';
+            initListeVilles();
+            document.querySelector("#creation_sortie_villes").addEventListener("click", initListeLieux);
+            document.querySelector("#creation_sortie_lieu").addEventListener("click", initRue);
+        }
     </script>
 
 {% endblock %}

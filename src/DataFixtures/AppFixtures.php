@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
         $manager->persist($etat);
         $manager->flush();
         $etat = new Etat();
-        $etat->setLibelle('passée');
+        $etat->setLibelle('Passée');
         $manager->persist($etat);
         $manager->flush();
         $etat = new Etat();
@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
         $manager->persist($etat);
         $manager->flush();
         $etat = new Etat();
-        $etat->setLibelle('Archiver');
+        $etat->setLibelle('Historique');
         $manager->persist($etat);
         $manager->flush();
 

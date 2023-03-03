@@ -1,4 +1,6 @@
 {% block body %}
+{# ICI ON AFFICHE SEULEMENT LA NAVBAR QUE SI LE USER EST CONNECTÉ SINON OON AFFICHE SEULEMENT LE TITRE#}
+    {% if app.user %}
 <div class="row">
             <div class="col-6"><h1>Sortir.Com</h1></div>
             <div class="col">
@@ -8,13 +10,16 @@
                         <li class="nav-item"><a class="nav-link" href="{{ path('app_city_gestion') }}">Villes</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('app_campus_gestion') }}">Campus</a></li>
                     {% endif %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('main_home') }}">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('user_profil') }}">Mon profil</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 </ul>
             </div>
         </div>
+    {% else %}
+    <h1 class="titre1">Sortir.com</h1>
+    {% endif %}
 {% endblock %}
 
 {% block title %}
