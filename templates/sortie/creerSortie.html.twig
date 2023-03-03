@@ -86,7 +86,7 @@
         });
 
         function initListeVilles() {
-            fetch('http://localhost:8000/api/villes',{
+            fetch('{{ app_url_api }}'+'/villes',{
                 method: "GET",
                 headers: {'Accept' : 'application/json'}
             })
@@ -107,7 +107,7 @@
         function initListeLieux() {
             let villeIndex=document.getElementById("creation_sortie_villes").value;
 
-            fetch('http://localhost:8000/api/ville/'+villeIndex,{
+            fetch('{{ app_url_api }}'+'/ville/'+villeIndex,{
                 method: "GET",
                 headers: {'Accept' : 'application/json'}
             })
@@ -118,7 +118,7 @@
                     alert('Erreur !');
                 })
 
-            fetch('http://localhost:8000/api/lieux/'+villeIndex,{
+            fetch('{{ app_url_api }}'+'/lieux/'+villeIndex,{
                 method: "GET",
                 headers: {'Accept' : 'application/json'}
             })
@@ -138,7 +138,7 @@
         function initRue() {
             let lieuIndex=document.getElementById("creation_sortie_lieu").value;
             //console.log(lieuIndex);
-            fetch('http://localhost:8000/api/rue/'+lieuIndex,{
+            fetch('{{ app_url_api }}'+'/rue/'+lieuIndex,{
                 method: "GET",
                 headers: {'Accept' : 'application/json'}
             })

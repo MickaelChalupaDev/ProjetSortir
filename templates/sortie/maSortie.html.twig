@@ -11,7 +11,7 @@
     <table name="tableModifierSortie">
         <tr>
             <td> {{ form_row(sortieForm.nom) }}  </td>
-            <td> {{ form_row(sortieForm.campus) }}  </td>
+            <td> {{ form_row(sortieForm.campus)}}            </td>
         </tr>
         <tr>
             <td>   {{form_row(sortieForm.dateHeureDebut) }}  </td>
@@ -24,12 +24,22 @@
         </tr>
         <tr>
             <td> {{ form_row(sortieForm.nbInscriptionsMax) }}  </td>
-            <td> <div class="modifierSortieTd0"> <div>  Rue :</div> <div> {{ sortie.lieu.rue }}</div> </div> </td>
+            <td> <div class="creerSortieTd"> <div class="creerSortieTd0">  Rue :</div>
+                    <div id="rue" >
+
+                    </div>
+                </div>
+            </td>
 
         </tr>
         <tr>
             <td> {{ form_row(sortieForm.duree) }}  </td>
-            <td> <div class="modifierSortieTd1"> <div>  Code Postal :</div> <div> {{ sortie.lieu.ville.codePostal }}</div> </div> </td>
+            <td> <div class="creerSortieTd"> <div class="creerSortieTd0">  Code Postal :</div>
+                    <div id="codePostal">
+
+                    </div>
+                </div>
+            </td>
 
         </tr>
         <tr>
@@ -72,6 +82,85 @@
         $('.datetimepicker').datetimepicker({
             format: 'YYYY-MM-DD hh:mm:ss'
         });
+
+        function initListeVilles() {
+            fetch('{{ app_url_api }}'+'/villes',{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then(response => {
+                    let options='';
+                    response.map(ville => {
+                        options+=`<option value ="${ville.id}"> ${ville.nom} </option>`
+                    })
+                    document.querySelector("#sortie_villes").innerHTML=options
+
+                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        function initListeLieux() {
+            let villeIndex=document.getElementById("sortie_villes").value;
+
+            fetch('{{ app_url_api }}'+'/ville/'+villeIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then( (data) => {document.querySelector("#codePostal").innerHTML=data.codePostal;
+                    document.querySelector("#rue").innerHTML=""; })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+            fetch('{{ app_url_api }}'+'/lieux/'+villeIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then(response => {
+                    let options='';
+                    response.map(lieu => {
+                        options+=`<option value ="${lieu.id}"> ${lieu.nom} </option>`
+                    })
+                    document.querySelector("#sortie_lieu").innerHTML=options;
+                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        function initRue() {
+            let lieuIndex=document.getElementById("sortie_lieu").value;
+            //console.log(lieuIndex);
+            fetch('{{ app_url_api }}'+'/rue/'+lieuIndex,{
+                method: "GET",
+                headers: {'Accept' : 'application/json'}
+            })
+                .then(response => response.json() )
+                .then((data) => {if (typeof data.rue !=="undefined") { document.querySelector("#rue").innerHTML=data.rue;
+                    document.getElementById('sortie_latitude').value=data.latitude;
+                    document.getElementById('sortie_longitude').value=data.longitude;
+                }
+                else { document.querySelector("#rue").innerHTML='';
+                    document.getElementById('sortie_latitude').value='';
+                    document.getElementById('sortie_longitude').value='';
+                }
+                })
+                .catch(e => {
+                    alert('Erreur !');
+                })
+
+        }
+        window.onload = () => {
+            document.querySelector("#sortie_lieu").innerHTML='';
+            initListeVilles();
+            document.querySelector("#sortie_villes").addEventListener("click", initListeLieux);
+            document.querySelector("#sortie_lieu").addEventListener("click", initRue);
+        }
 
     </script>
 
