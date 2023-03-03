@@ -51,7 +51,7 @@
             <td>
                 <div class="modifierSortieBtn">
                     {{ form_row(sortieForm.supprimer) }}
-                    <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}" disabled="@(!context.Validate())">Annuler</a> </button>
+                    <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}" disabled="@(!context.Validate())"><button class="btn btn-warning">Annuler</button></a>
 
                 </div>
             </td>
