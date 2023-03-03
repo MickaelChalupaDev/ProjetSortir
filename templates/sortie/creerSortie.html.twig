@@ -64,7 +64,7 @@
                     <div class="modifierSortieBtn" >
                         {{ form_row(creationSortieForm.enregistrer)}}
                         {{ form_row(creationSortieForm.publier)}}
-                        <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-warning">Annuler</button></a>
+                        <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-warning" disabled="@(!context.Validate())" >Annuler</button></a>
                     </div>
                 </td>
             </tr>

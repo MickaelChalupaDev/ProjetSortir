@@ -19,9 +19,11 @@
         {{ form_row(userForm.photo) }}
        <div class="profilValidation">
            {{ form_row(userForm.enregistrer) }}
-           <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-primary">Annuler</button></a>
+           {{ form_end(userForm) }}
+
+           <a class="profilValidationA" href="{{ path('app_filtre_sortie') }}"><button class="btn btn-primary" disabled="@(!context.Validate())" >Annuler</button></a>
        </div>
-        {{ form_end(userForm) }}
+
     </div>
     </div>
 </div>
