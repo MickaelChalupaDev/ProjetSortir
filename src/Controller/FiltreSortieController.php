@@ -19,7 +19,7 @@ class FiltreSortieController extends AbstractController
     #[Route('/FiltrerSortie', name: 'app_filtre_sortie')]
     public function index(Request $request, SortieRepository $repository, EtatRepository $etatRepository): Response
     {
-
+        $this->forward('App\Controller\checkController::updateSortiesEtat');
         $sortie= new Sortie();
         $form = $this->createForm(FormFiltreSortiesType::class, $sortie);
 

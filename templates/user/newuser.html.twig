@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+{% include('navbar.html.twig') %}
+
+    <div>
+        <div class="vide1"></div>
+    <div class="monProfil">
+
+        {{ form_start(userForm) }}
+        {{ form_row(userForm.prenom) }}
+        {{ form_row(userForm.nom) }}
+        {{ form_row(userForm.roles) }}
+        {{ form_row(userForm.telephone) }}
+        {{ form_row(userForm.email) }}
+        {{ form_row(userForm.password) }}
+         {{ form_row(userForm.campus) }}
+        {{ form_row(userForm.photo) }}
+       <div class="profilValidation">
+           {{ form_row(userForm.enregistrer) }}
+           <button class="profilValidationBtn"> <a class="profilValidationA" href="{{ path('main_home') }}">Annuler</a> </button>
+       </div>
+        {{ form_end(userForm) }}
+    </div>
+{% endblock %}
+
